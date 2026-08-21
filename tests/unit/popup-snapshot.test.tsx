@@ -54,6 +54,27 @@ vi.mock("../../src/ui/runtime-client", () => ({
     }),
   startRecording: () => Promise.resolve({ ok: false }),
   stopRecording: vi.fn(() => Promise.resolve({ ok: true, value: {} })),
+  updateLocale: (locale: "zh" | "en") => {
+    savedLocale = locale;
+    return Promise.resolve({
+      ok: true,
+      value: {
+        schemaVersion: 4,
+        key: "app",
+        defaultSessionConfig: {
+          responseBodySoftBudgetBytes: 1,
+          responseBodyMaxBytes: 1,
+          hoverDwellThresholdMs: 500,
+          networkQuietWindowMs: 800,
+          stepMaxWindowMs: 10_000,
+          userFilterRules: [],
+          extraCookieDomains: [],
+        },
+        locale: savedLocale,
+        updatedAt: 0,
+      },
+    });
+  },
 }));
 
 const { App } = await import("../../src/ui/popup/App");
@@ -134,7 +155,7 @@ describe("Popup", () => {
     const zh = await renderPopup();
     expect(zh.container.querySelector(".ach-status-chip")?.textContent).toContain("待机");
     expect(
-      zh.container.querySelector<HTMLButtonElement>(".ach-btn-row .ach-btn--ghost")?.textContent,
+      zh.container.querySelector<HTMLButtonElement>(".ach-btn--secondary")?.textContent,
     ).toContain("打开侧边栏");
     disposePopup(zh.container, zh.root);
 
@@ -142,15 +163,41 @@ describe("Popup", () => {
     const en = await renderPopup();
     expect(en.container.querySelector(".ach-status-chip")?.textContent).toContain("Standby");
     expect(
-      en.container.querySelector<HTMLButtonElement>(".ach-btn-row .ach-btn--ghost")?.textContent,
+      en.container.querySelector<HTMLButtonElement>(".ach-btn--secondary")?.textContent,
     ).toContain("Side Panel");
     disposePopup(en.container, en.root);
+  });
+
+  it("switches locale directly from the header language switcher", async () => {
+    listedSessions = [];
+    savedLocale = "zh";
+    const { container, root } = await renderPopup();
+    expect(container.querySelector(".ach-brand-kicker")?.textContent).toBe("录制控制台");
+
+    const enButton = [
+      ...container.querySelectorAll<HTMLButtonElement>(".ach-lang-switcher button"),
+    ].find((btn) => btn.textContent?.trim() === "EN");
+    expect(enButton).toBeDefined();
+
+    await act(async () => {
+      enButton?.click();
+      await Promise.resolve();
+    });
+    for (let index = 0; index < 4; index += 1) {
+      await act(async () => {
+        await Promise.resolve();
+      });
+    }
+
+    expect(savedLocale).toBe("en");
+    expect(container.querySelector(".ach-brand-kicker")?.textContent).toBe("Mission Control");
+    disposePopup(container, root);
   });
 
   it("closes the popup after the side panel opens successfully", async () => {
     const closePopup = vi.spyOn(window, "close").mockImplementation(() => undefined);
     const { container, root } = await renderPopup();
-    const button = container.querySelector<HTMLButtonElement>(".ach-btn-row .ach-btn--ghost");
+    const button = container.querySelector<HTMLButtonElement>(".ach-btn--secondary");
     if (button === null) {
       throw new Error("expected the side-panel command");
     }
@@ -169,7 +216,7 @@ describe("Popup", () => {
     const closePopup = vi.spyOn(window, "close").mockImplementation(() => undefined);
     openSidePanel.mockRejectedValueOnce(new Error("side panel unavailable"));
     const { container, root } = await renderPopup();
-    const button = container.querySelector<HTMLButtonElement>(".ach-btn-row .ach-btn--ghost");
+    const button = container.querySelector<HTMLButtonElement>(".ach-btn--secondary");
     if (button === null) {
       throw new Error("expected the side-panel command");
     }

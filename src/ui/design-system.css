@@ -150,6 +150,13 @@ body {
   margin-bottom: 16px;
 }
 
+.ach-header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
 /* ---------- kicker / section titles ---------- */
 
 .ach-kicker {
@@ -251,6 +258,60 @@ body {
   background: var(--ach-red-soft);
 }
 
+/* ---------- language switcher ---------- */
+
+.ach-lang-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--ach-line);
+  border-radius: 999px;
+  background: var(--ach-panel);
+  backdrop-filter: blur(12px);
+}
+
+.ach-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ach-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--ach-text-faint);
+  border: none;
+  border-radius: 999px;
+  padding: 3px 8px;
+  background: transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: color var(--ach-fast) var(--ach-ease),
+    background var(--ach-fast) var(--ach-ease),
+    box-shadow var(--ach-fast) var(--ach-ease);
+}
+
+.ach-lang-btn:hover:not(:disabled) {
+  color: var(--ach-text);
+}
+
+.ach-lang-btn--active {
+  color: var(--ach-accent) !important;
+  background: var(--ach-panel-solid);
+  box-shadow: 0 1px 3px rgba(21, 21, 60, 0.1);
+  cursor: default;
+}
+
+.ach-lang-btn:disabled:not(.ach-lang-btn--active) {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.ach-lang-btn:focus-visible {
+  outline: 2px solid var(--ach-accent);
+  outline-offset: 1px;
+}
+
 /* ---------- buttons ---------- */
 
 .ach-btn {
@@ -335,6 +396,23 @@ body {
   box-shadow: none;
 }
 
+.ach-btn--secondary {
+  width: 100%;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--ach-line-strong);
+  color: var(--ach-text);
+  box-shadow: 0 1px 2px rgba(21, 21, 60, 0.05);
+}
+
+.ach-btn--secondary:hover:not(:disabled) {
+  border-color: var(--ach-accent-line);
+  color: var(--ach-accent);
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.12);
+  transform: translateY(-1px);
+}
+
 .ach-btn--sm {
   padding: 5px 11px;
   font-size: 11px;
@@ -353,13 +431,22 @@ body {
   flex-wrap: wrap;
 }
 
+.ach-action-grid {
+  position: relative;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
 /* ---------- split button & dropdown menu ---------- */
 
 .ach-split-btn-group {
   position: relative;
   display: inline-flex;
   align-items: stretch;
-  flex: 1;
+  width: 100%;
+  height: 38px;
   border-radius: 10px;
   background: linear-gradient(135deg, var(--ach-accent), var(--ach-accent-2));
   box-shadow: var(--ach-shadow-pop), inset 0 1px 0 rgba(255, 255, 255, 0.25);
@@ -405,10 +492,18 @@ body {
 
 .ach-split-btn__main {
   flex: 1;
-  padding: 9px 12px;
+  min-width: 0;
+  padding: 0 8px 0 12px;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
   border-right: 1px solid rgba(255, 255, 255, 0.25);
+  white-space: nowrap;
+}
+
+.ach-split-btn__main span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ach-split-btn__main:hover:not(:disabled) {
@@ -420,7 +515,8 @@ body {
 }
 
 .ach-split-btn__trigger {
-  padding: 0 11px;
+  padding: 0 9px;
+  flex: none;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -444,8 +540,9 @@ body {
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
-  width: 100%;
+  width: calc(200% + 10px);
   min-width: 326px;
+  max-width: 336px;
   z-index: 1000;
   border: 1px solid rgba(21, 21, 60, 0.16);
   border-radius: 14px;

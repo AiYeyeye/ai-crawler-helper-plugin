@@ -30,6 +30,7 @@ import { DEFAULT_LOCALE, t, tpl, type Locale } from "../../shared/i18n";
 import { STOP_LATE_RESPONSE_WINDOW_MS } from "../../core/config";
 import { CaptureQualityView } from "./CaptureQualityView";
 import { ConfirmDialog } from "../ConfirmDialog";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 import { SettingsPanel } from "./SettingsPanel";
 import { StepCard } from "./StepCard";
 
@@ -252,28 +253,36 @@ export const App = (): ReactElement => {
             <h1 className="ach-brand-title">{t(locale, "sidepanel.appTitle")}</h1>
           </div>
         </div>
-        <nav className="ach-tabs" aria-label={t(locale, "sidepanel.timelineTab")}>
-          <button
-            className="ach-tab"
-            disabled={tab === "timeline"}
-            onClick={() => {
-              setTab("timeline");
-            }}
-          >
-            <Activity size={13} />
-            {t(locale, "sidepanel.timelineTab")}
-          </button>
-          <button
-            className="ach-tab"
-            disabled={tab === "settings"}
-            onClick={() => {
-              setTab("settings");
-            }}
-          >
-            <Settings2 size={13} />
-            {t(locale, "sidepanel.settingsTab")}
-          </button>
-        </nav>
+        <div className="ach-header-actions">
+          <LanguageSwitcher
+            locale={locale}
+            disabled={busy}
+            onLocaleChange={setLocale}
+            onErrorMessage={setMessage}
+          />
+          <nav className="ach-tabs" aria-label={t(locale, "sidepanel.timelineTab")}>
+            <button
+              className="ach-tab"
+              disabled={tab === "timeline"}
+              onClick={() => {
+                setTab("timeline");
+              }}
+            >
+              <Activity size={13} />
+              {t(locale, "sidepanel.timelineTab")}
+            </button>
+            <button
+              className="ach-tab"
+              disabled={tab === "settings"}
+              onClick={() => {
+                setTab("settings");
+              }}
+            >
+              <Settings2 size={13} />
+              {t(locale, "sidepanel.settingsTab")}
+            </button>
+          </nav>
+        </div>
       </header>
 
       {message !== null && (
@@ -327,7 +336,7 @@ export const App = (): ReactElement => {
       )}
 
       {tab === "settings" ? (
-        <SettingsPanel locale={locale} onLocaleChange={setLocale} />
+        <SettingsPanel locale={locale} />
       ) : (
         <>
           <label className="ach-field ach-anim-in">

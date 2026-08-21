@@ -5,13 +5,12 @@ import {
   Gauge,
   Info,
   KeyRound,
-  Languages,
   Plus,
   Save,
   ShieldAlert,
   Trash2,
 } from "lucide-react";
-import { getAppSettings, updateAppSettings, updateLocale } from "../runtime-client";
+import { getAppSettings, updateAppSettings } from "../runtime-client";
 import type { AppSettings, SessionConfigPatch } from "../../schemas/settings";
 import { sessionConfigPatchSchema } from "../../schemas/settings";
 import {
@@ -19,7 +18,7 @@ import {
   OPTIONAL_HOST_PERMISSION_USAGE,
 } from "../../shared/permissions";
 import { errorText, formatBytes } from "../format";
-import { DEFAULT_LOCALE, t, tpl, type Locale } from "../../shared/i18n";
+import { t, tpl, type Locale } from "../../shared/i18n";
 
 /**
  * Settings panel (PRD 4.14).
@@ -47,7 +46,20 @@ interface NumericField {
 
 const NUMERIC_FIELD_KEYS: Record<
   NumericField["key"],
-  { readonly label: "settings.field.responseBodySoftBudget" | "settings.field.responseBodyMax" | "settings.field.hoverDwell" | "settings.field.networkQuiet" | "settings.field.stepMaxWindow"; readonly hint: "settings.hint.responseBodySoftBudget" | "settings.hint.responseBodyMax" | "settings.hint.hoverDwell" | "settings.hint.networkQuiet" | "settings.hint.stepMaxWindow" }
+  {
+    readonly label:
+      | "settings.field.responseBodySoftBudget"
+      | "settings.field.responseBodyMax"
+      | "settings.field.hoverDwell"
+      | "settings.field.networkQuiet"
+      | "settings.field.stepMaxWindow";
+    readonly hint:
+      | "settings.hint.responseBodySoftBudget"
+      | "settings.hint.responseBodyMax"
+      | "settings.hint.hoverDwell"
+      | "settings.hint.networkQuiet"
+      | "settings.hint.stepMaxWindow";
+  }
 > = {
   responseBodySoftBudgetBytes: {
     label: "settings.field.responseBodySoftBudget",
@@ -76,19 +88,19 @@ const numericFields = (locale: Locale): NumericField[] =>
     key,
     label: t(locale, NUMERIC_FIELD_KEYS[key].label),
     hint: t(locale, NUMERIC_FIELD_KEYS[key].hint),
-    unit: key === "responseBodySoftBudgetBytes" || key === "responseBodyMaxBytes"
-      ? "bytes"
-      : "ms",
+    unit:
+      key === "responseBodySoftBudgetBytes" || key === "responseBodyMaxBytes"
+        ? "bytes"
+        : "ms",
   }));
 
 const FILTER_KINDS = ["domain", "url_regex", "method", "content_type"] as const;
 
 interface SettingsPanelProps {
   readonly locale: Locale;
-  readonly onLocaleChange: (locale: Locale) => void;
 }
 
-export const SettingsPanel = ({ locale, onLocaleChange }: SettingsPanelProps): ReactElement => {
+export const SettingsPanel = ({ locale }: SettingsPanelProps): ReactElement => {
   const [settings, setSettings] = useState<AppSettings | null>(null);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
   const [cookieDomains, setCookieDomains] = useState("");
@@ -206,48 +218,6 @@ export const SettingsPanel = ({ locale, onLocaleChange }: SettingsPanelProps): R
           <span>{message}</span>
         </p>
       )}
-
-      <div className="ach-section">
-        <div className="ach-section-head">
-          <span className="ach-section-index">00</span>
-          <h3 className="ach-section-title">
-            <Languages size={11} style={{ marginRight: 5, verticalAlign: "-1px" }} />
-            {t(locale, "settings.languageLabel")}
-          </h3>
-        </div>
-        <div className="ach-btn-row" style={{ width: "fit-content" }}>
-          {(["zh", "en"] as const).map((candidate) => (
-            <button
-              key={candidate}
-              className={
-                locale === candidate
-                  ? "ach-btn ach-btn--primary ach-btn--sm"
-                  : "ach-btn ach-btn--sm"
-              }
-              disabled={busy || locale === candidate}
-              onClick={() => {
-                setBusy(true);
-                void updateLocale(candidate)
-                  .then((result) => {
-                    if (result.ok) {
-                      const next = result.value.locale ?? DEFAULT_LOCALE;
-                      onLocaleChange(next);
-                      setMessage(t(next, "settings.saved"));
-                    } else {
-                      setMessage(errorText(result.error));
-                    }
-                  })
-                  .finally(() => {
-                    setBusy(false);
-                  });
-              }}
-            >
-              {candidate === "zh" ? "中文" : "EN"}
-            </button>
-          ))}
-        </div>
-        <p className="ach-hint">{t(locale, "settings.languageHint")}</p>
-      </div>
 
       <div className="ach-section">
         <div className="ach-section-head">

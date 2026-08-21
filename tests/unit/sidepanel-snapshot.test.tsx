@@ -218,20 +218,11 @@ describe("Side Panel rebuilds entirely from repository snapshots", () => {
     expect(container.querySelector(".ach-brand-kicker")?.textContent).toBe("遥测面板");
     expect(container.querySelector(".ach-brand-title")?.textContent).toBe("录制检查");
 
-    const settingsTab = [...container.querySelectorAll<HTMLButtonElement>(".ach-tabs button")]
-      .find((button) => button.textContent?.includes("设置"));
-    if (settingsTab === undefined) {
-      throw new Error("expected the settings tab");
-    }
-    act(() => {
-      settingsTab.click();
-    });
-    await settle();
-
-    const englishButton = [...container.querySelectorAll<HTMLButtonElement>("button")]
-      .find((button) => button.textContent?.trim() === "EN");
+    const englishButton = [
+      ...container.querySelectorAll<HTMLButtonElement>(".ach-lang-switcher button"),
+    ].find((button) => button.textContent?.trim() === "EN");
     if (englishButton === undefined) {
-      throw new Error("expected the English locale button");
+      throw new Error("expected the English locale button in header");
     }
     await act(async () => {
       englishButton.click();

@@ -130,12 +130,12 @@ describe("fact summary traceability", () => {
     }
 
     const byLabel = new Map(summary.fields.map((field) => [field.label, field]));
-    expect(byLabel.get("请求数")?.value).toBe(String(step.requestKeys.length));
-    expect(byLabel.get("存储变化记录")?.value).toBe(String(step.storageDiffIds.length));
-    expect(byLabel.get("结束原因")?.value).toBe(step.closeReason);
-    expect(byLabel.get("耗时(ms)")?.value).toBe(String(step.endedAt - step.startedAt));
-    expect(byLabel.get("目标")?.source).toBe("step.domBefore.locators.ariaName");
-    expect(byLabel.get("状态码")?.value).toBe("201×1");
+    expect(byLabel.get("Requests")?.value).toBe(String(step.requestKeys.length));
+    expect(byLabel.get("Storage diff records")?.value).toBe(String(step.storageDiffIds.length));
+    expect(byLabel.get("Close reason")?.value).toBe(step.closeReason);
+    expect(byLabel.get("Duration (ms)")?.value).toBe(String(step.endedAt - step.startedAt));
+    expect(byLabel.get("Target")?.source).toBe("step.domBefore.locators.ariaName");
+    expect(byLabel.get("Status codes")?.value).toBe("201×1");
     expect(summary.headline).toContain("click");
   });
 
@@ -147,9 +147,9 @@ describe("fact summary traceability", () => {
     });
 
     const field = buildFactSummary({ step }).fields.find(
-      (candidate) => candidate.label === "DOM 变化",
+      (candidate) => candidate.label === "DOM changes",
     );
-    expect(field?.value).toBe("未采集（missing_due_to_gap）");
+    expect(field?.value).toBe("Not captured (missing_due_to_gap)");
     expect(field?.source).toBe("step.domAfter.reason");
   });
 

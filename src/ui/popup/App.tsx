@@ -36,6 +36,7 @@ import {
 import { STOP_LATE_RESPONSE_WINDOW_MS } from "../../core/config";
 import { DEFAULT_LOCALE, t, tpl, type Locale } from "../../shared/i18n";
 import { ConfirmDialog } from "../ConfirmDialog";
+import { LanguageSwitcher } from "../LanguageSwitcher";
 
 /**
  * Popup (PRD 4.14): lightweight command entry — start / start+reload / stop /
@@ -253,16 +254,24 @@ export const App = (): ReactElement => {
             <h1 className="ach-brand-title">{t(locale, "popup.appTitle")}</h1>
           </div>
         </div>
-        <span
-          className={active === undefined ? "ach-status-chip" : "ach-status-chip ach-status-chip--live"}
-        >
-          <span className={active === undefined ? "ach-beacon" : "ach-beacon ach-beacon--live"} />
-          {active === undefined
-            ? t(locale, "popup.standby")
-            : stopping
-              ? t(locale, "popup.stoppingChip")
-              : t(locale, "popup.rec")}
-        </span>
+        <div className="ach-header-actions">
+          <LanguageSwitcher
+            locale={locale}
+            disabled={busy}
+            onLocaleChange={setLocale}
+            onErrorMessage={setMessage}
+          />
+          <span
+            className={active === undefined ? "ach-status-chip" : "ach-status-chip ach-status-chip--live"}
+          >
+            <span className={active === undefined ? "ach-beacon" : "ach-beacon ach-beacon--live"} />
+            {active === undefined
+              ? t(locale, "popup.standby")
+              : stopping
+                ? t(locale, "popup.stoppingChip")
+                : t(locale, "popup.rec")}
+          </span>
+        </div>
       </header>
 
       {eligibility !== null && !eligibility.ok && (
@@ -272,7 +281,7 @@ export const App = (): ReactElement => {
         </p>
       )}
 
-      <div className="ach-btn-row ach-anim-in ach-anim-in-1">
+      <div className="ach-action-grid ach-anim-in ach-anim-in-1">
         <div
           className={`ach-split-btn-group${busy || !startable ? " ach-split-btn-group--disabled" : ""}`}
           ref={splitBtnRef}
@@ -364,9 +373,9 @@ export const App = (): ReactElement => {
           )}
         </div>
 
-        <button className="ach-btn ach-btn--ghost" onClick={handleOpenSidePanel}>
+        <button className="ach-btn ach-btn--secondary" onClick={handleOpenSidePanel}>
           <PanelRightOpen size={14} />
-          {t(locale, "popup.openSidePanel")}
+          <span>{t(locale, "popup.openSidePanel")}</span>
         </button>
       </div>
 

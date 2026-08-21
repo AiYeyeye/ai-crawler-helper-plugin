@@ -25,6 +25,25 @@ Unlike fragile full-page HTML scrapers or opaque proxies, `AI Crawler Helper` re
 
 ---
 
+## 📸 Screenshots (界面预览)
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <b>全链路录制面板 (Interaction Recording)</b><br/><br/>
+        <img src="./docs/images/webstore-screenshot-1.png" width="100%" alt="Interaction Recording" />
+      </td>
+      <td align="center" width="50%">
+        <b>智能状态机与安全守护 (Safety & State Machine)</b><br/><br/>
+        <img src="./docs/images/webstore-screenshot-2.png" width="100%" alt="Safety & State Machine" />
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
 ## ✨ Key Features
 
 - 🔒 **100% Local-First & Zero Telemetry**: All data is stored in the browser's local IndexedDB. No backend servers, no cloud syncing, no telemetry, and no hidden tracking.

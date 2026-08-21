@@ -114,11 +114,11 @@ Real-time storage pressure monitoring automatically pauses recording before hitt
 
 | 物料类型 | 尺寸与格式要求 | 状态与路径 |
 | :--- | :--- | :---: |
-| **商店主图标 (Store Icon)** | `128x128 PNG` | ✅ 已生成: `public/icons/icon-128.png` |
-| **高清宣传图标 (Hi-res Icon)** | `512x512 PNG` | ✅ 已生成: `public/icons/icon-512.png` |
-| **扩展界面截图 (Screenshots)** | `1280x800` 或 `640x400` PNG/JPEG (至少 1 张，至多 5 张) | 📸 建议在 Chrome 中加载插件后截取 1~3 张实际效果图 |
-| **小宣传横幅 (Small Promo Tile)** *(可选)* | `440x280 PNG` | 🎨 可使用 Logo + 居中标题制作 |
-| **大宣传横幅 (Marquee Tile)** *(可选)* | `1400x560 PNG` | 用于推荐位展示 |
+| **商店主图标 (Store Icon)** | `128x128 PNG` | ✅ 已就绪: `public/icons/icon-128.png` |
+| **高清宣传图标 (Hi-res Icon)** | `512x512 PNG` | ✅ 已就绪: `public/icons/icon-512.png` |
+| **扩展界面截图 (Screenshots)** | `1280x800 PNG` (至少 1 张，已就绪 2 张) | ✅ 已生成 2 张标准商店图:<br/>1. `docs/images/webstore-screenshot-1.png`<br/>2. `docs/images/webstore-screenshot-2.png` |
+| **小宣传横幅 (Small Promo Tile)** *(可选)* | `440x280 PNG` | 🎨 可选展示 |
+| **大宣传横幅 (Marquee Tile)** *(可选)* | `1400x560 PNG` | 🎨 可选展示 |
 
 ---
 
