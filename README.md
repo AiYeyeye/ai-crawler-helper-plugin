@@ -11,7 +11,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25%20Local-success.svg)](./PRIVACY.md)
 
-[English](./README.md) | [中文说明](#-中文说明)
+[English](./README.md) | [简体中文](./README_zh.md)
 
 </div>
 
@@ -52,7 +52,7 @@ Unlike fragile full-page HTML scrapers or opaque proxies, `AI Crawler Helper` re
 
 - 🔒 **100% Local-First & Zero Telemetry**: All data is stored in the browser's local IndexedDB. No backend servers, no cloud syncing, no telemetry, and no hidden tracking.
 - 🎯 **Step-Centric Recording**: Groups interactions, scoped DOM changes, network traffic, and storage deltas into logical, sequential steps.
-- 🌐 **CDP-Grade Network Capture**: Utilizes `chrome.debugger` (Chrome DevTools Protocol Network Domain) to faithfully record actual headers, status codes, query parameters, and response payloads.
+- 🌐 **CDP-Grade Network Capture**: Utilizes `chrome.debugger` (Chrome DevTools Protocol Network Domain) to faithfully record actual headers, status codes, query parameters, cookies, and response payloads.
 - 🌳 **Minimal Scoped DOM Trees**: Captures only the target element's subtree, parent chains to `<body>`, and local mutations—preventing memory bloat and preserving high signal-to-noise ratio.
 - 📦 **Structured Fact Packages**: One-click export to versioned ZIP archives (or single JSON for small sessions) with human- and LLM-readable markdown indexes.
 - 🛡️ **Capacity & Quota Guard**: Real-time quota and memory monitoring automatically pauses recording before exceeding safe browser thresholds.
@@ -82,8 +82,8 @@ flowchart LR
         Offscreen --> FactPackage[Structured Fact Package: ZIP / JSON]
     end
 
-    FactPackage --> AI[AI Agents: Claude / ChatGPT / DeepSeek]
-    FactPackage --> Human[Human Crawling Engineer]
+    FactPackage --> AI[AI Coding Agents: Claude / GPT-4 / DeepSeek]
+    FactPackage --> Human[Crawler / Test Engineers]
 ```
 
 ---
@@ -127,21 +127,43 @@ flowchart LR
 
 ---
 
-## 🛠️ Development & Testing
+## 💡 How to Use AI Crawler Helper (Step-by-Step Guide)
 
-```bash
-# Run unit tests
-pnpm run test
+### 1. Open the Side Panel
+Navigate to the target website you wish to crawl or test, click the extension icon on the Chrome toolbar, and select **"Open Side Panel"**. The companion interface will open alongside the page.
 
-# Run integration tests
-pnpm run test:integration
+### 2. Start a Recording Session
+- Click **"Start Recording"** (开始录制).
+- Accept the host permission prompt if recording on this domain for the first time.
+- A recording banner will indicate that CDP network capture and DOM observation are active.
 
-# Type check
-pnpm run typecheck
+### 3. Interact Naturally with the Web Page
+Perform the user journey you want your crawler to automate:
+- Click navigation links, buttons, or pagination controls.
+- Fill out search forms or input login credentials.
+- Scroll through dynamic feeds to trigger infinite scroll or lazy loading.
 
-# Lint code
-pnpm run lint
-```
+Each discrete interaction is automatically organized into a sequential **Step** containing:
+- Target element selector, parent chain, and scoped DOM subtree.
+- DOM mutations that occurred after the interaction.
+- All HTTP/HTTPS requests, headers, and responses triggered by the action.
+- Cookie and LocalStorage diffs.
+
+### 4. Review Live Facts & Quality Audit
+In the Side Panel:
+- Inspect recorded steps, captured request counts, and execution duration in real time.
+- Expand the **Capture Quality Audit** section to verify that no network blind spots occurred.
+
+### 5. Stop Recording & Export Fact Package
+- Click **"Stop Recording"** (停止录制).
+- Select **"Export ZIP Fact Package"** (导出事实包).
+- An archive named `export-session-[id].zip` will download directly to your local computer.
+
+### 6. Feed into AI Agents to Generate Crawlers
+Unpack the ZIP archive or provide `INDEX.md` and `session.json` to your favorite AI coding assistant (Claude 3.5 Sonnet, GPT-4o, DeepSeek-V3, Cursor):
+
+> **Example Prompt for AI**:
+> *"Here is the structured browser interaction fact package recorded by AI Crawler Helper. Based on the recorded DOM locators, network request headers, and pagination steps in `INDEX.md`, please write a robust Python Playwright script that logs in, searches for items, and extracts the target dataset."*
 
 ---
 
@@ -166,27 +188,29 @@ export-session-[id].zip
 
 ---
 
-## ☕ Sponsorship & Support (赞助与支持)
+## 🛠️ Development & Testing
+
+```bash
+# Run unit tests
+pnpm run test
+
+# Run integration tests
+pnpm run test:integration
+
+# Type check
+pnpm run typecheck
+
+# Lint code
+pnpm run lint
+```
+
+---
+
+## ☕ Sponsorship & Support
 
 If this project helps you build better crawlers or saves you development time, please consider supporting the project:
 
-- ⚡ **爱发电 (Afdian)**: [https://afdian.com/a/Crawler](https://afdian.com/a/Crawler)
-- 📱 **微信 / 支付宝扫码打赏**:
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="260">
-        <b>微信支付 (WeChat Pay)</b><br/><br/>
-        <img src="./docs/images/wechat-pay-qr.png" width="220" alt="WeChat Pay QR" />
-      </td>
-      <td align="center" width="260">
-        <b>支付宝 (Alipay)</b><br/><br/>
-        <img src="./docs/images/alipay-qr.png" width="220" alt="Alipay QR" />
-      </td>
-    </tr>
-  </table>
-</div>
+- ⚡ **Afdian (爱发电)**: [https://afdian.com/a/Crawler](https://afdian.com/a/Crawler)
 
 Your support helps maintain the project, improve documentation, and keep it up to date with the latest browser APIs!
 
@@ -199,48 +223,3 @@ This project is licensed under the **Apache License 2.0 with Non-Commercial Cond
 - ✅ **Free for Personal, Academic, and Non-Commercial Use**.
 - ❌ **Commercial Use Prohibited Without License**: Sublicensing, embedding in commercial SaaS/products, internal closed-source enterprise deployment, or resale requires an explicit commercial license.
 - 💼 For enterprise licenses and commercial inquiries, please contact: `supercomputing@agent.qq.com`.
-
----
-
-<br/>
-
-## 🇨🇳 中文说明
-
-### 项目简介
-`AI Crawler Helper` 是一款基于 Chrome/Chromium Manifest V3 的**完全本地化**浏览器录制扩展。当你在真实目标站点中手动操作时，插件以 **Step（步骤）** 为核心单位，忠实记录用户操作、局部目标 DOM 树、DOM 变化、URL 导航、CDP 级网络请求/响应以及 Cookie/Storage 状态变化，并导出一键可供 AI 分析的结构化事实数据包。
-
-### 核心亮点
-1. **100% 纯本地运行**：零云端依赖、无后端、无遥测上报，数据仅保存在浏览器本地 IndexedDB 中。
-2. **CDP 深度抓包**：借助 Chrome Debugger 协议采集最真实的请求头、状态码与响应体。
-3. **精准局部 DOM**：仅保留目标元素完整子树与父链，避免整页快照的冗余噪音。
-4. **AI 友好数据结构**：导出的 ZIP 包自带结构化索引与 Markdown 指引，可直接喂给 Claude / ChatGPT / DeepSeek 自动生成 Playwright / Puppeteer / Scrapy 爬虫。
-5. **容量安全水位保护**：实时监测存储配额，超限自动暂停，防止浏览器崩溃。
-
-### 📸 功能与界面预览
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="33%">
-        <b>全链路事实录制面板</b><br/><br/>
-        <img src="./docs/images/webstore-screenshot-1-zh.png" width="100%" alt="全链路事实录制" />
-      </td>
-      <td align="center" width="33%">
-        <b>结构化事实包与 AI 提示词</b><br/><br/>
-        <img src="./docs/images/webstore-screenshot-3-zh.png" width="100%" alt="结构化事实包与 AI 提示词" />
-      </td>
-      <td align="center" width="33%">
-        <b>智能状态机与安全守护</b><br/><br/>
-        <img src="./docs/images/webstore-screenshot-2-zh.png" width="100%" alt="智能状态机与安全守护" />
-      </td>
-    </tr>
-  </table>
-</div>
-
-### 赞助与打赏
-如果你觉得这个工具有效提升了你的爬虫开发效率，欢迎通过以下方式赞助作者：
-- **爱发电主页**：[https://afdian.com/a/Crawler](https://afdian.com/a/Crawler)
-- **微信 / 支付宝扫码**：请见上方打赏二维码表格。
-
-### 开源与商用说明
-本项目遵循 **Apache-2.0 附带非商业化限制条款（Non-Commercial）**。个人学习、研究与非商用场景完全免费；任何企业内部闭源集成、SaaS 化打包或商业化销售行为，均需联系作者获取商业授权（联系邮箱：`supercomputing@agent.qq.com`）。
