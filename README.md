@@ -4,6 +4,7 @@
 
 **A 100% local-first, Manifest V3 browser extension for deterministic web fact recording, DOM mutation tracking, and AI-ready crawler dataset export.**
 
+[![CI](https://github.com/AiYeyeye/ai-crawler-helper-plugin/actions/workflows/ci.yml/badge.svg)](https://github.com/AiYeyeye/ai-crawler-helper-plugin/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache%202.0%20(Non--Commercial)-blue.svg)](./LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D9.0.0-orange.svg)](https://pnpm.io/)
@@ -32,6 +33,35 @@ Unlike fragile full-page HTML scrapers or opaque proxies, `AI Crawler Helper` re
 - 🌳 **Minimal Scoped DOM Trees**: Captures only the target element's subtree, parent chains to `<body>`, and local mutations—preventing memory bloat and preserving high signal-to-noise ratio.
 - 📦 **Structured Fact Packages**: One-click export to versioned ZIP archives (or single JSON for small sessions) with human- and LLM-readable markdown indexes.
 - 🛡️ **Capacity & Quota Guard**: Real-time quota and memory monitoring automatically pauses recording before exceeding safe browser thresholds.
+
+---
+
+## 🏗️ Architecture & Data Flow
+
+```mermaid
+flowchart LR
+    subgraph Browser Tab
+        User[User Actions] --> ContentScript[Content Script: Scoped DOM & Mutation Recorder]
+    end
+
+    subgraph Chrome MV3 Background
+        Debugger[CDP Debugger: Network Events]
+        Cookies[Cookie / Storage Collector]
+        SM[Session State Machine & Capacity Guard]
+        ContentScript --> SM
+        Debugger --> SM
+        Cookies --> SM
+        SM --> DB[(IndexedDB Storage)]
+    end
+
+    subgraph Export Engine
+        DB --> Offscreen[Offscreen Document: Async Zip Writer]
+        Offscreen --> FactPackage[Structured Fact Package: ZIP / JSON]
+    end
+
+    FactPackage --> AI[AI Agents: Claude / GPT-4 / DeepSeek]
+    FactPackage --> Human[Human Crawling Engineer]
+```
 
 ---
 

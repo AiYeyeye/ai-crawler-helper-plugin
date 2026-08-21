@@ -3,11 +3,24 @@
   "name": "AI Crawler Helper",
   "version": "0.1.0",
   "description": "Local-only recording of user actions, DOM, navigation, network and storage facts. No backend, no upload, no AI calls.",
+  "homepage_url": "https://github.com/AiYeyeye/ai-crawler-helper-plugin",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
   "minimum_chrome_version": "125",
   "incognito": "not_allowed",
   "action": {
     "default_title": "AI Crawler Helper",
-    "default_popup": "popup/index.html"
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
   },
   "side_panel": {
     "default_path": "sidepanel/index.html"
