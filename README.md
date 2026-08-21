@@ -25,18 +25,18 @@ Unlike fragile full-page HTML scrapers or opaque proxies, `AI Crawler Helper` re
 
 ---
 
-## 📸 Screenshots (界面预览)
+## 📸 Screenshots
 
 <div align="center">
   <table>
     <tr>
       <td align="center" width="50%">
-        <b>全链路录制面板 (Interaction Recording)</b><br/><br/>
-        <img src="./docs/images/webstore-screenshot-1.png" width="100%" alt="Interaction Recording" />
+        <b>Ground-Truth Fact Recording</b><br/><br/>
+        <img src="./docs/images/webstore-screenshot-1-en.png" width="100%" alt="Ground-Truth Recording" />
       </td>
       <td align="center" width="50%">
-        <b>智能状态机与安全守护 (Safety & State Machine)</b><br/><br/>
-        <img src="./docs/images/webstore-screenshot-2.png" width="100%" alt="Safety & State Machine" />
+        <b>Lifecycle & Safety Guard</b><br/><br/>
+        <img src="./docs/images/webstore-screenshot-2-en.png" width="100%" alt="Lifecycle & Safety Guard" />
       </td>
     </tr>
   </table>
@@ -211,6 +211,23 @@ This project is licensed under the **Apache License 2.0 with Non-Commercial Cond
 3. **精准局部 DOM**：仅保留目标元素完整子树与父链，避免整页快照的冗余噪音。
 4. **AI 友好数据结构**：导出的 ZIP 包自带结构化索引与 Markdown 指引，可直接喂给 Claude / ChatGPT / DeepSeek 自动生成 Playwright / Puppeteer / Scrapy 爬虫。
 5. **容量安全水位保护**：实时监测存储配额，超限自动暂停，防止浏览器崩溃。
+
+### 📸 功能与界面预览
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="50%">
+        <b>全链路事实录制面板</b><br/><br/>
+        <img src="./docs/images/webstore-screenshot-1-zh.png" width="100%" alt="全链路事实录制" />
+      </td>
+      <td align="center" width="50%">
+        <b>智能状态机与安全守护</b><br/><br/>
+        <img src="./docs/images/webstore-screenshot-2-zh.png" width="100%" alt="智能状态机与安全守护" />
+      </td>
+    </tr>
+  </table>
+</div>
 
 ### 赞助与打赏
 如果你觉得这个工具有效提升了你的爬虫开发效率，欢迎通过以下方式赞助作者：

@@ -135,6 +135,15 @@ const zh = {
   "cq.recoveredAction": "已恢复：{action}",
   "cq.inProgress": "进行中",
   "cq.estimatedBoundary": "（边界为估算）",
+  "cq.reassureNotice":
+    "核心用户操作与主流程数据已完整录制。所记录的盲区多为第三方内嵌页面（iframe）或后台无主统计埋点，无需人工干预。",
+  "cq.badgeIframe": "第三方 iframe",
+  "cq.badgeBeacon": "后台探针忽略",
+  "cq.badgeOther": "边缘盲区",
+  "cq.explainIframe": "页面内嵌框架销毁/断开，属于浏览器正常生命周期，主录制不受影响。",
+  "cq.explainBeacon": "后台异步统计/心跳请求未在时限内关联主步骤，已安全丢弃，不影响主流程。",
+  "cq.explainGeneric": "底层采集盲区记录，用于审计数据可溯源性。",
+  "cq.viewDebugDetails": "底层技术参数",
 
   // -------------------------------------------------------------------------
   // Settings panel
@@ -410,6 +419,15 @@ const en: Record<keyof typeof zh, string> = {
   "cq.recoveredAction": "Recovered: {action}",
   "cq.inProgress": "In progress",
   "cq.estimatedBoundary": " (estimated boundary)",
+  "cq.reassureNotice":
+    "Core user actions and main document facts are fully intact. Recorded gaps are typically 3rd-party iframes or background beacons, no action needed.",
+  "cq.badgeIframe": "3rd-party iframe",
+  "cq.badgeBeacon": "Background beacon",
+  "cq.badgeOther": "Edge gap",
+  "cq.explainIframe": "Embedded iframe was detached normally by the page; main recording is unaffected.",
+  "cq.explainBeacon": "Unlinked background telemetry/beacon timed out and safely discarded.",
+  "cq.explainGeneric": "Underlying capture gap audit record for data traceability.",
+  "cq.viewDebugDetails": "Technical details",
 
   // Settings panel
   "settings.loading": "Loading settings…",

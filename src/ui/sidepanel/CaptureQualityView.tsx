@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { ShieldCheck } from "lucide-react";
+import { Info, ShieldCheck } from "lucide-react";
 import type { CaptureGapRecord } from "../../schemas/capture-gap";
 import type { SessionRecord } from "../../schemas/session";
 import { formatTimestamp, gapReasonLabel, lifecycleLabel, qualityLabel } from "../format";
@@ -80,6 +80,35 @@ const recoveryText = (gap: CaptureGapRecord, locale: Locale): string => {
   }
 };
 
+interface GapCategory {
+  readonly badge: string;
+  readonly explanation: string;
+  readonly isBenign: boolean;
+}
+
+const getGapCategory = (gap: CaptureGapRecord, locale: Locale): GapCategory => {
+  const detail = gap.detail ?? "";
+  if (detail.includes("child target detached: iframe") || detail.includes("iframe")) {
+    return {
+      badge: t(locale, "cq.badgeIframe"),
+      explanation: t(locale, "cq.explainIframe"),
+      isBenign: true,
+    };
+  }
+  if (detail.includes("request scope unresolved") || gap.reason === "other_unrecoverable_window") {
+    return {
+      badge: t(locale, "cq.badgeBeacon"),
+      explanation: t(locale, "cq.explainBeacon"),
+      isBenign: true,
+    };
+  }
+  return {
+    badge: t(locale, "cq.badgeOther"),
+    explanation: t(locale, "cq.explainGeneric"),
+    isBenign: false,
+  };
+};
+
 export const CaptureQualityView = ({
   session,
   gaps,
@@ -108,35 +137,55 @@ export const CaptureQualityView = ({
         </p>
       ) : (
         <>
-          <p className="ach-banner ach-banner--warn" style={{ margin: "4px 0 8px" }}>
-            <span>
-              {tpl(locale, "cq.summary", { total: gaps.length, open: open.length })}
-            </span>
-          </p>
-          <ul className="ach-list">
-            {gaps.map((gap) => (
-              <li
-                key={gap.gapId}
-                data-testid="capture-gap"
-                data-gap-resolution={gapResolution(gap)}
-                className="ach-gap"
-              >
-                <div className="ach-gap-title">
-                  {gapReasonLabel(gap.reason, locale)}
-                  {" · "}
-                  {formatTimestamp(gap.observedStartedAt)} →{" "}
-                  {gap.observedEndedAt === undefined
-                    ? t(locale, "cq.inProgress")
-                    : formatTimestamp(gap.observedEndedAt)}
-                  {gap.boundaryConfidence === "estimated" && t(locale, "cq.estimatedBoundary")}
-                </div>
-                <div className="ach-gap-meta">
-                  {scopeText(gap, locale)} · {t(locale, "cq.affectedCapabilities")}{" "}
-                  {gap.affectedCapabilities.join("/")} · {recoveryText(gap, locale)}
-                </div>
-                {gap.detail !== undefined && <div className="ach-gap-detail">{gap.detail}</div>}
-              </li>
-            ))}
+          <div className="ach-quality-reassure">
+            <div className="ach-quality-reassure__header">
+              <Info size={13} style={{ color: "var(--ach-accent)", flexShrink: 0 }} />
+              <span className="ach-quality-reassure__title">
+                {tpl(locale, "cq.summary", { total: gaps.length, open: open.length })}
+              </span>
+            </div>
+            <p className="ach-quality-reassure__text">
+              {t(locale, "cq.reassureNotice")}
+            </p>
+          </div>
+          <ul className="ach-list" style={{ marginTop: 8 }}>
+            {gaps.map((gap) => {
+              const category = getGapCategory(gap, locale);
+              return (
+                <li
+                  key={gap.gapId}
+                  data-testid="capture-gap"
+                  data-gap-resolution={gapResolution(gap)}
+                  className={`ach-gap${category.isBenign ? " ach-gap--benign" : ""}`}
+                >
+                  <div className="ach-gap-head">
+                    <div className="ach-gap-title">
+                      {gapReasonLabel(gap.reason, locale)}
+                      {" · "}
+                      {formatTimestamp(gap.observedStartedAt)} →{" "}
+                      {gap.observedEndedAt === undefined
+                        ? t(locale, "cq.inProgress")
+                        : formatTimestamp(gap.observedEndedAt)}
+                      {gap.boundaryConfidence === "estimated" && t(locale, "cq.estimatedBoundary")}
+                    </div>
+                    <span className="ach-gap-badge">{category.badge}</span>
+                  </div>
+                  <div className="ach-gap-explanation">
+                    {category.explanation}
+                  </div>
+                  <details className="ach-gap-details">
+                    <summary className="ach-gap-summary">
+                      {t(locale, "cq.viewDebugDetails")}
+                    </summary>
+                    <div className="ach-gap-meta">
+                      {scopeText(gap, locale)} · {t(locale, "cq.affectedCapabilities")}{" "}
+                      {gap.affectedCapabilities.join("/")} · {recoveryText(gap, locale)}
+                    </div>
+                    {gap.detail !== undefined && <div className="ach-gap-detail">{gap.detail}</div>}
+                  </details>
+                </li>
+              );
+            })}
           </ul>
         </>
       )}
