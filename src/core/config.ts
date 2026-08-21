@@ -26,8 +26,8 @@ export const HOVER_DWELL_THRESHOLD_MS = 500;
 /** Product default: input batch quiet window (PRD 4.2). */
 export const INPUT_BATCH_QUIET_WINDOW_MS = 800;
 
-/** Product default: max wait for in-flight requests on stop (PRD 4.1). */
-export const STOP_LATE_RESPONSE_WINDOW_MS = 10_000;
+/** Product default: max wait for in-flight requests on stop (PRD 4.1). 60s. */
+export const STOP_LATE_RESPONSE_WINDOW_MS = 60_000;
 
 /**
  * Minimum elapsed window before a quiescent stop may complete early.

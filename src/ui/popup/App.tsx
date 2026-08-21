@@ -436,8 +436,10 @@ export const App = (): ReactElement => {
                 {active.stopRequestedAt === undefined
                   ? ` ${t(locale, "popup.almostDone")}`
                   : ` ${tpl(locale, "popup.waitedOfMax", {
-                      elapsed: ((nowMs - active.stopRequestedAt) / 1000).toFixed(1),
-                      max: STOP_LATE_RESPONSE_WINDOW_MS / 1000,
+                      elapsed: Math.min(
+                        (nowMs - active.stopRequestedAt) / 1000,
+                        STOP_LATE_RESPONSE_WINDOW_MS / 1000,
+                      ).toFixed(1),
                     })}`}{" "}
                 · {tpl(locale, "popup.factsRecorded", { count: snapshot?.control.counters.factCount ?? "—" })}
               </span>

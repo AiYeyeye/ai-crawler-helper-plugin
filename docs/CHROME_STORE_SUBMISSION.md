@@ -116,8 +116,8 @@ Real-time storage pressure monitoring automatically pauses recording before hitt
 | :--- | :--- | :---: |
 | **商店主图标 (Store Icon)** | `128x128 PNG` | ✅ 已就绪: `public/icons/icon-128.png` |
 | **高清宣传图标 (Hi-res Icon)** | `512x512 PNG` | ✅ 已就绪: `public/icons/icon-512.png` |
-| **扩展界面截图 (英文版 · 推荐国际商店上传)** | `1280x800 PNG` | ✅ 已生成英文版 (文字绝无遮挡):<br/>1. `docs/images/webstore-screenshot-1-en.png`<br/>2. `docs/images/webstore-screenshot-2-en.png` |
-| **扩展界面截图 (中文版 · 适合中文区商店或展示)** | `1280x800 PNG` | ✅ 已生成中文版 (文字绝无遮挡):<br/>1. `docs/images/webstore-screenshot-1-zh.png`<br/>2. `docs/images/webstore-screenshot-2-zh.png` |
+| **扩展界面截图 (英文版 · 推荐国际商店上传)** | `1280x800 PNG` | ✅ 已生成 3 张英文版 (文字绝无遮挡):<br/>1. `docs/images/webstore-screenshot-1-en.png`<br/>2. `docs/images/webstore-screenshot-3-en.png`<br/>3. `docs/images/webstore-screenshot-2-en.png` |
+| **扩展界面截图 (中文版 · 适合中文区商店或展示)** | `1280x800 PNG` | ✅ 已生成 3 张中文版 (文字绝无遮挡):<br/>1. `docs/images/webstore-screenshot-1-zh.png`<br/>2. `docs/images/webstore-screenshot-3-zh.png`<br/>3. `docs/images/webstore-screenshot-2-zh.png` |
 | **小宣传横幅 (Small Promo Tile)** *(可选)* | `440x280 PNG` | 🎨 可选展示 |
 | **大宣传横幅 (Marquee Tile)** *(可选)* | `1400x560 PNG` | 用于推荐位展示 |
 

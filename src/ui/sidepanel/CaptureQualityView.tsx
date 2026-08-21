@@ -1,5 +1,5 @@
 import type { ReactElement } from "react";
-import { Info, ShieldCheck } from "lucide-react";
+import { ChevronDown, Info, ShieldCheck } from "lucide-react";
 import type { CaptureGapRecord } from "../../schemas/capture-gap";
 import type { SessionRecord } from "../../schemas/session";
 import { formatTimestamp, gapReasonLabel, lifecycleLabel, qualityLabel } from "../format";
@@ -136,58 +136,72 @@ export const CaptureQualityView = ({
           {t(locale, "cq.noBlindSpots")}
         </p>
       ) : (
-        <>
-          <div className="ach-quality-reassure">
-            <div className="ach-quality-reassure__header">
+        <details className="ach-quality-collapse">
+          <summary className="ach-quality-collapse__summary">
+            <div className="ach-quality-collapse__title">
               <Info size={13} style={{ color: "var(--ach-accent)", flexShrink: 0 }} />
-              <span className="ach-quality-reassure__title">
-                {tpl(locale, "cq.summary", { total: gaps.length, open: open.length })}
+              <span>
+                {tpl(locale, "cq.collapsedTitle", { count: gaps.length })}
               </span>
             </div>
-            <p className="ach-quality-reassure__text">
-              {t(locale, "cq.reassureNotice")}
-            </p>
+            <span className="ach-quality-collapse__toggle">
+              {t(locale, "cq.toggleDetails")}
+              <ChevronDown size={12} className="ach-quality-collapse__chevron" />
+            </span>
+          </summary>
+          <div className="ach-quality-collapse__content">
+            <div className="ach-quality-reassure">
+              <div className="ach-quality-reassure__header">
+                <ShieldCheck size={13} style={{ color: "var(--ach-green)", flexShrink: 0 }} />
+                <span className="ach-quality-reassure__title">
+                  {tpl(locale, "cq.summary", { total: gaps.length, open: open.length })}
+                </span>
+              </div>
+              <p className="ach-quality-reassure__text">
+                {t(locale, "cq.reassureNotice")}
+              </p>
+            </div>
+            <ul className="ach-list" style={{ marginTop: 8 }}>
+              {gaps.map((gap) => {
+                const category = getGapCategory(gap, locale);
+                return (
+                  <li
+                    key={gap.gapId}
+                    data-testid="capture-gap"
+                    data-gap-resolution={gapResolution(gap)}
+                    className={`ach-gap${category.isBenign ? " ach-gap--benign" : ""}`}
+                  >
+                    <div className="ach-gap-head">
+                      <div className="ach-gap-title">
+                        {gapReasonLabel(gap.reason, locale)}
+                        {" · "}
+                        {formatTimestamp(gap.observedStartedAt)} →{" "}
+                        {gap.observedEndedAt === undefined
+                          ? t(locale, "cq.inProgress")
+                          : formatTimestamp(gap.observedEndedAt)}
+                        {gap.boundaryConfidence === "estimated" && t(locale, "cq.estimatedBoundary")}
+                      </div>
+                      <span className="ach-gap-badge">{category.badge}</span>
+                    </div>
+                    <div className="ach-gap-explanation">
+                      {category.explanation}
+                    </div>
+                    <details className="ach-gap-details">
+                      <summary className="ach-gap-summary">
+                        {t(locale, "cq.viewDebugDetails")}
+                      </summary>
+                      <div className="ach-gap-meta">
+                        {scopeText(gap, locale)} · {t(locale, "cq.affectedCapabilities")}{" "}
+                        {gap.affectedCapabilities.join("/")} · {recoveryText(gap, locale)}
+                      </div>
+                      {gap.detail !== undefined && <div className="ach-gap-detail">{gap.detail}</div>}
+                    </details>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
-          <ul className="ach-list" style={{ marginTop: 8 }}>
-            {gaps.map((gap) => {
-              const category = getGapCategory(gap, locale);
-              return (
-                <li
-                  key={gap.gapId}
-                  data-testid="capture-gap"
-                  data-gap-resolution={gapResolution(gap)}
-                  className={`ach-gap${category.isBenign ? " ach-gap--benign" : ""}`}
-                >
-                  <div className="ach-gap-head">
-                    <div className="ach-gap-title">
-                      {gapReasonLabel(gap.reason, locale)}
-                      {" · "}
-                      {formatTimestamp(gap.observedStartedAt)} →{" "}
-                      {gap.observedEndedAt === undefined
-                        ? t(locale, "cq.inProgress")
-                        : formatTimestamp(gap.observedEndedAt)}
-                      {gap.boundaryConfidence === "estimated" && t(locale, "cq.estimatedBoundary")}
-                    </div>
-                    <span className="ach-gap-badge">{category.badge}</span>
-                  </div>
-                  <div className="ach-gap-explanation">
-                    {category.explanation}
-                  </div>
-                  <details className="ach-gap-details">
-                    <summary className="ach-gap-summary">
-                      {t(locale, "cq.viewDebugDetails")}
-                    </summary>
-                    <div className="ach-gap-meta">
-                      {scopeText(gap, locale)} · {t(locale, "cq.affectedCapabilities")}{" "}
-                      {gap.affectedCapabilities.join("/")} · {recoveryText(gap, locale)}
-                    </div>
-                    {gap.detail !== undefined && <div className="ach-gap-detail">{gap.detail}</div>}
-                  </details>
-                </li>
-              );
-            })}
-          </ul>
-        </>
+        </details>
       )}
     </section>
   );

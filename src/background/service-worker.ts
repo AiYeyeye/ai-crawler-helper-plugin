@@ -467,27 +467,42 @@ const recordStoppingRecoveryGap = async (
 };
 
 const completeStop = async (runtime: Runtime, sessionId: SessionId): Promise<void> => {
-  await completeSessionStop({
-    sealAndDrainNavigation: () => runtime.navigation.sealAndDrain(sessionId),
-    finalizeObservations: () =>
-      getObservationProcessor(runtime, sessionId).sessionStopping(sessionId),
-    // Collectors stop while lifecycle is `stopping`, so final snapshots and
-    // admitted late network facts commit before the clean lifecycle boundary.
-    stopCollectors: (runtime.pipeline?.collectors ?? []).map(
-      (collector) => () => collector.stop(sessionId),
-    ),
-    persistCleanCompletion: async () => {
+  try {
+    await completeSessionStop({
+      sealAndDrainNavigation: () => runtime.navigation.sealAndDrain(sessionId),
+      finalizeObservations: () =>
+        getObservationProcessor(runtime, sessionId).sessionStopping(sessionId),
+      // Collectors stop while lifecycle is `stopping`, so final snapshots and
+      // admitted late network facts commit before the clean lifecycle boundary.
+      stopCollectors: (runtime.pipeline?.collectors ?? []).map(
+        (collector) => () => collector.stop(sessionId),
+      ),
+      persistCleanCompletion: async () => {
+        await runtime.sessions.applyLifecycleEvent(sessionId, "stop_completed", {
+          now: Date.now(),
+          cleanStop: true,
+        });
+      },
+      cleanupRuntime: () => {
+        runtime.stopTimers.delete(sessionId);
+        runtime.observationProcessors.delete(sessionId);
+        stopActivity.clear(sessionId);
+      },
+    });
+  } catch (cause: unknown) {
+    console.warn("[ai-crawler-helper] clean stop failed, persisting degraded stop completion", cause);
+    try {
       await runtime.sessions.applyLifecycleEvent(sessionId, "stop_completed", {
         now: Date.now(),
-        cleanStop: true,
+        cleanStop: false,
       });
-    },
-    cleanupRuntime: () => {
-      runtime.stopTimers.delete(sessionId);
-      runtime.observationProcessors.delete(sessionId);
-      stopActivity.clear(sessionId);
-    },
-  });
+    } catch (persistError: unknown) {
+      console.error("[ai-crawler-helper] failed to persist degraded stop", persistError);
+    }
+    runtime.stopTimers.delete(sessionId);
+    runtime.observationProcessors.delete(sessionId);
+    stopActivity.clear(sessionId);
+  }
 };
 
 /**
@@ -707,6 +722,19 @@ const handleRequest = async (
     }
     case "command/stopRecording": {
       const now = Date.now();
+      const existing = await runtime.sessions.getSession(request.sessionId);
+      if (existing?.lifecycle === "stopping") {
+        const stopRequestedAt = existing.stopRequestedAt ?? now;
+        if (now >= stopRequestedAt + STOP_LATE_RESPONSE_WINDOW_MS) {
+          await completeStop(runtime, request.sessionId);
+        } else {
+          scheduleStopCompletion(runtime, request.sessionId, stopRequestedAt);
+        }
+        return okResponse({
+          stopping: true,
+          lateResponseWindowMs: STOP_LATE_RESPONSE_WINDOW_MS,
+        });
+      }
       await runtime.sessions.applyLifecycleEvent(request.sessionId, "stop_requested", { now });
       const stoppingSession = await runtime.sessions.getSession(request.sessionId);
       scheduleStopCompletion(
@@ -765,6 +793,16 @@ const handleRequest = async (
     }
     case "query/listSessions": {
       const sessions = await runtime.sessions.listSessions();
+      for (const session of sessions) {
+        if (session.lifecycle === "stopping") {
+          const stopRequestedAt = session.stopRequestedAt ?? Date.now();
+          if (Date.now() >= stopRequestedAt + STOP_LATE_RESPONSE_WINDOW_MS) {
+            void completeStop(runtime, session.sessionId);
+          } else {
+            scheduleStopCompletion(runtime, session.sessionId, stopRequestedAt);
+          }
+        }
+      }
       return okResponse({ sessions } satisfies ListSessionsResponse);
     }
     case "query/sessionSnapshot": {
@@ -773,6 +811,14 @@ const handleRequest = async (
       const control = await runtime.sessions.getControl(sessionId);
       if (session === null || control === null) {
         return errResponse(businessError("SESSION_NOT_FOUND", `session ${sessionId} not found`));
+      }
+      if (session.lifecycle === "stopping") {
+        const stopRequestedAt = session.stopRequestedAt ?? Date.now();
+        if (Date.now() >= stopRequestedAt + STOP_LATE_RESPONSE_WINDOW_MS) {
+          void completeStop(runtime, sessionId);
+        } else {
+          scheduleStopCompletion(runtime, sessionId, stopRequestedAt);
+        }
       }
       const snapshot: SessionSnapshot = {
         session,

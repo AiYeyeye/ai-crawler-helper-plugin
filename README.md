@@ -30,11 +30,15 @@ Unlike fragile full-page HTML scrapers or opaque proxies, `AI Crawler Helper` re
 <div align="center">
   <table>
     <tr>
-      <td align="center" width="50%">
+      <td align="center" width="33%">
         <b>Ground-Truth Fact Recording</b><br/><br/>
         <img src="./docs/images/webstore-screenshot-1-en.png" width="100%" alt="Ground-Truth Recording" />
       </td>
-      <td align="center" width="50%">
+      <td align="center" width="33%">
+        <b>Structured Fact & AI Prompts</b><br/><br/>
+        <img src="./docs/images/webstore-screenshot-3-en.png" width="100%" alt="Structured Fact Export" />
+      </td>
+      <td align="center" width="33%">
         <b>Lifecycle & Safety Guard</b><br/><br/>
         <img src="./docs/images/webstore-screenshot-2-en.png" width="100%" alt="Lifecycle & Safety Guard" />
       </td>
@@ -217,11 +221,15 @@ This project is licensed under the **Apache License 2.0 with Non-Commercial Cond
 <div align="center">
   <table>
     <tr>
-      <td align="center" width="50%">
+      <td align="center" width="33%">
         <b>全链路事实录制面板</b><br/><br/>
         <img src="./docs/images/webstore-screenshot-1-zh.png" width="100%" alt="全链路事实录制" />
       </td>
-      <td align="center" width="50%">
+      <td align="center" width="33%">
+        <b>结构化事实包与 AI 提示词</b><br/><br/>
+        <img src="./docs/images/webstore-screenshot-3-zh.png" width="100%" alt="结构化事实包与 AI 提示词" />
+      </td>
+      <td align="center" width="33%">
         <b>智能状态机与安全守护</b><br/><br/>
         <img src="./docs/images/webstore-screenshot-2-zh.png" width="100%" alt="智能状态机与安全守护" />
       </td>

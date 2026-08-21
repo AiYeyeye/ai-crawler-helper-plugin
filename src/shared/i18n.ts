@@ -71,7 +71,7 @@ const zh = {
   "popup.sidePanelNeedsGesture": "侧边栏需要由用户点击打开，请再点一次「打开侧边栏」。",
   "popup.collectingLateResponses": "收集迟到响应中",
   "popup.almostDone": "即将完成",
-  "popup.waitedOfMax": "已等待 {elapsed}s / 最多 {max}s",
+  "popup.waitedOfMax": "已等待 {elapsed}s",
   "popup.factsRecorded": "已入账 {count} 条事实",
   "popup.stepStat": "Step",
   "popup.durationStat": "时长",
@@ -144,6 +144,8 @@ const zh = {
   "cq.explainBeacon": "后台异步统计/心跳请求未在时限内关联主步骤，已安全丢弃，不影响主流程。",
   "cq.explainGeneric": "底层采集盲区记录，用于审计数据可溯源性。",
   "cq.viewDebugDetails": "底层技术参数",
+  "cq.collapsedTitle": "共 {count} 处边缘盲区（已忽略，主流程正常）",
+  "cq.toggleDetails": "查看明细",
 
   // -------------------------------------------------------------------------
   // Settings panel
@@ -359,7 +361,7 @@ const en: Record<keyof typeof zh, string> = {
   "popup.sidePanelNeedsGesture": "The side panel must be opened by a user click; please click again.",
   "popup.collectingLateResponses": "Collecting late responses",
   "popup.almostDone": "finishing up",
-  "popup.waitedOfMax": "waited {elapsed}s / up to {max}s",
+  "popup.waitedOfMax": "waited {elapsed}s",
   "popup.factsRecorded": "{count} facts recorded",
   "popup.stepStat": "Step",
   "popup.durationStat": "Duration",
@@ -428,6 +430,8 @@ const en: Record<keyof typeof zh, string> = {
   "cq.explainBeacon": "Unlinked background telemetry/beacon timed out and safely discarded.",
   "cq.explainGeneric": "Underlying capture gap audit record for data traceability.",
   "cq.viewDebugDetails": "Technical details",
+  "cq.collapsedTitle": "{count} edge gap(s) (safely ignored, main flow intact)",
+  "cq.toggleDetails": "Details",
 
   // Settings panel
   "settings.loading": "Loading settings…",

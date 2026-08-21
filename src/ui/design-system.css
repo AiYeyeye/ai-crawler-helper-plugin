@@ -1175,6 +1175,68 @@ body {
 
 /* ---------- gaps & quality reassurance ---------- */
 
+.ach-quality-collapse {
+  margin-top: 8px;
+  border: 1px solid var(--ach-line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  transition: background-color var(--ach-fast) var(--ach-ease);
+}
+
+.ach-quality-collapse[open] {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 8px rgba(21, 21, 60, 0.04);
+}
+
+.ach-quality-collapse__summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 11px;
+}
+
+.ach-quality-collapse__summary::-webkit-details-marker {
+  display: none;
+}
+
+.ach-quality-collapse__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: var(--ach-text-dim);
+}
+
+.ach-quality-collapse__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--ach-font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--ach-accent);
+  flex-shrink: 0;
+}
+
+.ach-quality-collapse__chevron {
+  transition: transform var(--ach-fast) var(--ach-ease);
+}
+
+.ach-quality-collapse[open] .ach-quality-collapse__chevron {
+  transform: rotate(180deg);
+}
+
+.ach-quality-collapse__content {
+  padding: 0 10px 10px;
+  border-top: 1px solid var(--ach-line);
+  animation: ach-rise 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .ach-quality-reassure {
   margin: 8px 0 6px;
   padding: 8px 11px;
