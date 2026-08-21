@@ -97,7 +97,10 @@ beforeEach(() => {
         ]),
     },
     extension: { isAllowedFileSchemeAccess: () => Promise.resolve(false) },
-    permissions: { request: () => Promise.resolve(true) },
+    permissions: {
+      request: () => Promise.resolve(true),
+      contains: () => Promise.resolve(true),
+    },
     sidePanel: { open: openSidePanel },
   });
 });

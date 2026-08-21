@@ -92,9 +92,9 @@ Real-time storage pressure monitoring automatically pauses recording before hitt
 ---
 
 ### 3. 宿主权限合理性说明 (Host Permissions Justification)
-- **申请的权限**: `optional_host_permissions`: `http://*/*`, `https://*/*`
+- **申请的权限**: `host_permissions`: `http://*/*`, `https://*/*`, `file:///*`
 - **审核解释理由 (Justification)**:
-  > *"Users need to record interaction facts on arbitrary user-specified websites for crawling and testing purposes. Host permissions are declared as optional and requested only on the specific target tab when recording is initiated."*
+  > *"Users need to record interaction facts, CDP network requests, and DOM mutations on arbitrary user-specified websites for crawling and automation testing purposes."*
 
 ---
 

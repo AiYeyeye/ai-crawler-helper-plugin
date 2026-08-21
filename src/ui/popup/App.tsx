@@ -184,27 +184,42 @@ export const App = (): ReactElement => {
     const tabId = tab.id;
     setBusy(true);
     setMessage(null);
-    // Gesture-critical: no await may precede this call.
-    chrome.permissions
-      .request({ origins: [matchPattern] })
-      .then(async (granted): Promise<void> => {
+
+    void (async () => {
+      try {
+        let granted = false;
+        try {
+          granted = await chrome.permissions.contains({ origins: [matchPattern] });
+        } catch {
+          granted = false;
+        }
+
+        if (!granted) {
+          try {
+            granted = await chrome.permissions.request({ origins: [matchPattern] });
+          } catch {
+            setMessage(`SITE_PERMISSION_REQUIRED：${t(locale, "popup.permissionNeedsGesture")}`);
+            return;
+          }
+        }
+
         if (!granted) {
           setMessage(`SITE_PERMISSION_REQUIRED：${t(locale, "popup.permissionRequired")}`);
           return;
         }
+
         const result = await startRecording(tabId, mode);
         if (!result.ok) {
           setMessage(errorText(result.error));
           return;
         }
         await refresh();
-      })
-      .catch(() => {
-        setMessage(`SITE_PERMISSION_REQUIRED：${t(locale, "popup.permissionNeedsGesture")}`);
-      })
-      .finally(() => {
+      } catch (cause: unknown) {
+        console.error("[ai-crawler-helper] failed to start recording", cause);
+      } finally {
         setBusy(false);
-      });
+      }
+    })();
   };
 
   const handleStop = (sessionId: SessionId) => (): void => {

@@ -42,7 +42,7 @@
     "offscreen",
     "downloads"
   ],
-  "optional_host_permissions": [
+  "host_permissions": [
     "http://*/*",
     "https://*/*",
     "file:///*"
