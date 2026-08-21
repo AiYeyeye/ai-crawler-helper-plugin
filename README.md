@@ -223,19 +223,11 @@ pnpm run lint
 
 ---
 
-## 🙏 Acknowledgements
+## 🔗 Acknowledgements
 
-Special thanks to the **[LINUX DO](https://linux.do)** community for their support and open-source inspiration!
+- **[LINUX DO](https://linux.do)**: Thanks to the community for discussions, feedback, and open-source support.
 
----
-
-## ☕ Sponsorship & Support
-
-If this project helps you build better crawlers or saves you development time, please consider supporting the project:
-
-- ⚡ **Afdian (爱发电)**: [https://afdian.com/a/Crawler](https://afdian.com/a/Crawler)
-
-Your support helps maintain the project, improve documentation, and keep it up to date with the latest browser APIs!
+[Contributing Guide](./CONTRIBUTING.md) · [Architecture](./docs/ARCHITECTURE.md) · [Security Policy](./SECURITY.md)
 
 ---
 

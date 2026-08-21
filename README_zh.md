@@ -231,35 +231,11 @@ pnpm run lint
 
 ---
 
-## 🙏 致谢 (Acknowledgements)
+## 🔗 致谢
 
-特别感谢 **[LINUX DO 社区](https://linux.do)** 的支持与对开源精神的倡导！
+- **[LINUX DO](https://linux.do)**: 感谢社区的交流、反馈与开源支持。
 
----
-
-## ☕ 赞助与支持
-
-如果你觉得这个工具提升了你的爬虫开发效率或为你节省了时间，欢迎通过以下方式支持作者持续维护：
-
-- ⚡ **爱发电主页**：[https://afdian.com/a/Crawler](https://afdian.com/a/Crawler)
-- 📱 **微信 / 支付宝扫码赞助**：
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center" width="260">
-        <b>微信支付 (WeChat Pay)</b><br/><br/>
-        <img src="./docs/images/wechat-pay-qr.png" width="220" alt="微信支付赞赏码" />
-      </td>
-      <td align="center" width="260">
-        <b>支付宝 (Alipay)</b><br/><br/>
-        <img src="./docs/images/alipay-qr.png" width="220" alt="支付宝收款码" />
-      </td>
-    </tr>
-  </table>
-</div>
-
-感谢你的每一份支持，这能帮助我们持续适配最新的 Chrome API 并完善功能！
+[贡献指南](./CONTRIBUTING.md) · [架构说明](./docs/ARCHITECTURE.md) · [安全策略](./SECURITY.md)
 
 ---
 
