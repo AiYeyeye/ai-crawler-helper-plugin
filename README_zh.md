@@ -95,7 +95,23 @@ flowchart LR
 ### 方式 1：从 Chrome Web Store 安装（推荐）
 *(即将上线 - 正在 Chrome 应用商店审核中)*
 
-### 方式 2：本地源码构建与加载
+### 方式 2：下载 GitHub Release 预编译包（免配置环境 · 推荐普通用户）
+
+如果你不想在电脑上安装 Node.js/pnpm 等开发环境，可以直接使用官方打包好的安装包：
+
+1. **下载预编译包**：
+   - 打开 [GitHub Releases 页面](https://github.com/AiYeyeye/ai-crawler-helper-plugin/releases/latest)。
+   - 点击下载最新的安装包压缩文件：`ai-crawler-helper-plugin-v0.1.0.zip`。
+2. **解压文件**：
+   - 将下载的 `.zip` 文件解压到你电脑上的任意文件夹（例如 `D:\plugins\ai-crawler-helper-plugin`）。
+3. **加载到 Chrome / Edge 浏览器**：
+   1. 打开 Chrome 浏览器，在地址栏输入 `chrome://extensions/` 并回车（Edge 浏览器输入 `edge://extensions/`）。
+   2. 打开右上角的 **「开发者模式 (Developer mode)」** 开关。
+   3. 点击左上角的 **「加载已解压的扩展程序 (Load unpacked)」** 按钮。
+   4. 在弹出的文件选择框中，**选择刚刚解压出来的文件夹**（即包含 `manifest.json` 的目录）。
+   5. 插件安装完成！点击浏览器右上角的扩展图标并固定在工具栏即可直接使用。
+
+### 方式 3：本地源码构建与加载（开发者模式）
 
 #### 环境要求
 - [Node.js](https://nodejs.org/) (>= 20.x)

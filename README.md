@@ -93,7 +93,23 @@ flowchart LR
 ### Option 1: Install from Chrome Web Store (Recommended)
 *(Coming Soon - Pending Chrome Web Store Review)*
 
-### Option 2: Build & Load from Source
+### Option 2: Download Prebuilt Release (No Node.js / Build Tools Required)
+
+If you just want to use the extension without setting up a developer environment:
+
+1. **Download the latest release package**:
+   - Go to [GitHub Releases](https://github.com/AiYeyeye/ai-crawler-helper-plugin/releases/latest).
+   - Download the prebuilt archive: `ai-crawler-helper-plugin-v0.1.0.zip`.
+2. **Unzip the package**:
+   - Extract the `.zip` archive into a local folder on your computer (e.g., `Documents/ai-crawler-helper-plugin`).
+3. **Load into Chrome / Edge**:
+   1. Open Chrome and navigate to `chrome://extensions/` (or `edge://extensions/` in Edge).
+   2. Enable **Developer mode** toggle in the top-right corner.
+   3. Click **Load unpacked** in the top-left corner.
+   4. Select the extracted folder containing `manifest.json`.
+   5. Pin the extension to your toolbar and start recording immediately!
+
+### Option 3: Build & Load from Source (For Developers)
 
 #### Prerequisites
 - [Node.js](https://nodejs.org/) (>= 20.x)
