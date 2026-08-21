@@ -1,0 +1,36 @@
+{
+  "name": "ai-crawler-helper-plugin",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Local-only MV3 recording extension. Foundation: schemas, persistence, session state machine, capacity guard.",
+  "scripts": {
+    "build": "vite build && vite build --config vite.content.config.ts",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --config vitest.unit.config.ts",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "e2e": "node scripts/e2e-placeholder.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^1.27.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "@types/chrome": "^0.0.287",
+    "@types/jsdom": "^28.0.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint": "^9.17.0",
+    "fake-indexeddb": "^6.0.0",
+    "jsdom": "^29.1.1",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.18.1",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}

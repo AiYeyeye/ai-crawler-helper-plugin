@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "AI Crawler Helper",
+  "version": "0.1.0",
+  "description": "Local-only recording of user actions, DOM, navigation, network and storage facts. No backend, no upload, no AI calls.",
+  "minimum_chrome_version": "125",
+  "incognito": "not_allowed",
+  "action": {
+    "default_title": "AI Crawler Helper",
+    "default_popup": "popup/index.html"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/index.html"
+  },
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "permissions": [
+    "activeTab",
+    "cookies",
+    "debugger",
+    "scripting",
+    "sidePanel",
+    "storage",
+    "tabs",
+    "unlimitedStorage",
+    "webNavigation",
+    "offscreen",
+    "downloads"
+  ],
+  "optional_host_permissions": [
+    "http://*/*",
+    "https://*/*",
+    "file:///*"
+  ]
+}
