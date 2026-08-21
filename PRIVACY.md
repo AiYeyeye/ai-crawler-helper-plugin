@@ -68,4 +68,4 @@ We may update this Privacy Policy to reflect changes in extension features or br
 
 ## 7. Contact & Vulnerability Reporting
 
-If you have questions regarding this Privacy Policy or wish to report a security concern, please open an issue or refer to [SECURITY.md](./SECURITY.md).
+If you have questions regarding this Privacy Policy or wish to report a security concern, please contact us at `supercomputing@agent.qq.com` or refer to [SECURITY.md](./SECURITY.md).

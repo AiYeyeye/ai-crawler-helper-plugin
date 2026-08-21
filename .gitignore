@@ -20,6 +20,8 @@ browser-profiles/
 
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/
 
 # AI Agents, Trellis & Tooling
 .trellis/

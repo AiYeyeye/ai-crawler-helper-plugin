@@ -18,7 +18,7 @@ We take the security of `ai-crawler-helper-plugin` and its users seriously. Beca
 If you discover a security vulnerability or sensitive data handling issue, please report it responsibly:
 
 1. **Do NOT file a public issue.**
-2. Please submit a private vulnerability report via **GitHub Security Advisories** on this repository (under the **Security** tab -> **Report a vulnerability**), or contact the maintainer directly via GitHub profile email.
+2. Please submit a private vulnerability report via **GitHub Security Advisories** on this repository (under the **Security** tab -> **Report a vulnerability**), or contact the maintainer directly at `supercomputing@agent.qq.com`.
 3. Include detailed steps to reproduce the vulnerability, including browser version, target webpage, and expected vs actual behavior.
 
 ---

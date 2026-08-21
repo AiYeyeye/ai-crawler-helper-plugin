@@ -57,6 +57,7 @@ Real-time storage pressure monitoring automatically pauses recording before hitt
 - Explicit warnings are displayed before starting recording sessions and exporting fact archives.
 - Open Source Repository: https://github.com/AiYeyeye/ai-crawler-helper-plugin
 - Privacy Policy: https://github.com/AiYeyeye/ai-crawler-helper-plugin/blob/main/PRIVACY.md
+- Contact & Support: supercomputing@agent.qq.com
 ```
 
 ---

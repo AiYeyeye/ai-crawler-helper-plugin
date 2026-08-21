@@ -4,6 +4,16 @@
   "version": "0.1.0",
   "type": "module",
   "description": "Local-only MV3 recording extension. Foundation: schemas, persistence, session state machine, capacity guard.",
+  "author": "AiYeyeye <supercomputing@agent.qq.com>",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/AiYeyeye/ai-crawler-helper-plugin#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AiYeyeye/ai-crawler-helper-plugin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AiYeyeye/ai-crawler-helper-plugin/issues"
+  },
   "scripts": {
     "build": "vite build && vite build --config vite.content.config.ts",
     "lint": "eslint .",

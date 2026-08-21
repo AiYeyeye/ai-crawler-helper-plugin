@@ -21,7 +21,7 @@
 
 `AI Crawler Helper` is a developer-focused Chrome/Chromium Manifest V3 extension. When exploring target websites, it faithfully captures user interactions, scoped DOM subtrees, element mutations, navigation transitions, CDP-level network requests/responses, and storage state changes centered around discrete **Steps**, exporting them into versioned, structured fact packages.
 
-Unlike fragile full-page HTML scrapers or opaque proxies, `AI Crawler Helper` records **ground-truth browser facts** designed to be consumed directly by AI agents (e.g., Claude, GPT-4, DeepSeek) or human engineers to generate robust, production-grade Playwright, Puppeteer, or Scrapy crawlers.
+Unlike fragile full-page HTML scrapers or opaque proxies, `AI Crawler Helper` records **ground-truth browser facts** designed to be consumed directly by AI agents (e.g., Claude, ChatGPT, DeepSeek) or human engineers to generate robust, production-grade Playwright, Puppeteer, or Scrapy crawlers.
 
 ---
 
@@ -59,7 +59,7 @@ flowchart LR
         Offscreen --> FactPackage[Structured Fact Package: ZIP / JSON]
     end
 
-    FactPackage --> AI[AI Agents: Claude / GPT-4 / DeepSeek]
+    FactPackage --> AI[AI Agents: Claude / ChatGPT / DeepSeek]
     FactPackage --> Human[Human Crawling Engineer]
 ```
 
@@ -147,9 +147,23 @@ export-session-[id].zip
 
 If this project helps you build better crawlers or saves you development time, please consider supporting the project:
 
-- 💖 [GitHub Sponsors](https://github.com/sponsors/AiYeyeye)
-- ☕ [Buy Me a Coffee](https://www.buymeacoffee.com/your-id)
-- ⚡ [爱发电 (Afdian)](https://afdian.com/@your-id)
+- ⚡ **爱发电 (Afdian)**: [https://afdian.com/a/Crawler](https://afdian.com/a/Crawler)
+- 📱 **微信 / 支付宝扫码打赏**:
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="260">
+        <b>微信支付 (WeChat Pay)</b><br/><br/>
+        <img src="./docs/images/wechat-pay-qr.png" width="220" alt="WeChat Pay QR" />
+      </td>
+      <td align="center" width="260">
+        <b>支付宝 (Alipay)</b><br/><br/>
+        <img src="./docs/images/alipay-qr.png" width="220" alt="Alipay QR" />
+      </td>
+    </tr>
+  </table>
+</div>
 
 Your support helps maintain the project, improve documentation, and keep it up to date with the latest browser APIs!
 
@@ -161,7 +175,7 @@ This project is licensed under the **Apache License 2.0 with Non-Commercial Cond
 
 - ✅ **Free for Personal, Academic, and Non-Commercial Use**.
 - ❌ **Commercial Use Prohibited Without License**: Sublicensing, embedding in commercial SaaS/products, internal closed-source enterprise deployment, or resale requires an explicit commercial license.
-- 💼 For enterprise licenses and commercial inquiries, please contact: `[your-email@domain.com]`.
+- 💼 For enterprise licenses and commercial inquiries, please contact: `supercomputing@agent.qq.com`.
 
 ---
 
@@ -176,14 +190,13 @@ This project is licensed under the **Apache License 2.0 with Non-Commercial Cond
 1. **100% 纯本地运行**：零云端依赖、无后端、无遥测上报，数据仅保存在浏览器本地 IndexedDB 中。
 2. **CDP 深度抓包**：借助 Chrome Debugger 协议采集最真实的请求头、状态码与响应体。
 3. **精准局部 DOM**：仅保留目标元素完整子树与父链，避免整页快照的冗余噪音。
-4. **AI 友好数据结构**：导出的 ZIP 包自带结构化索引与 Markdown 指引，可直接喂给 Claude / GPT-4 / DeepSeek 自动生成 Playwright / Puppeteer / Scrapy 爬虫。
+4. **AI 友好数据结构**：导出的 ZIP 包自带结构化索引与 Markdown 指引，可直接喂给 Claude / ChatGPT / DeepSeek 自动生成 Playwright / Puppeteer / Scrapy 爬虫。
 5. **容量安全水位保护**：实时监测存储配额，超限自动暂停，防止浏览器崩溃。
 
 ### 赞助与打赏
 如果你觉得这个工具有效提升了你的爬虫开发效率，欢迎通过以下方式赞助作者：
-- **爱发电**：[https://afdian.com/@your-id](https://afdian.com/@your-id)
-- **微信 / 支付宝**：*(可在 GitHub Release / Wiki 中提供赞赏码)*
-- **GitHub Sponsors**：[https://github.com/sponsors/AiYeyeye](https://github.com/sponsors/AiYeyeye)
+- **爱发电主页**：[https://afdian.com/a/Crawler](https://afdian.com/a/Crawler)
+- **微信 / 支付宝扫码**：请见上方打赏二维码表格。
 
 ### 开源与商用说明
-本项目遵循 **Apache-2.0 附带非商业化限制条款（Non-Commercial）**。个人学习、研究与非商用场景完全免费；任何企业内部闭源集成、SaaS 化打包或商业化销售行为，均需联系作者获取商业授权。
+本项目遵循 **Apache-2.0 附带非商业化限制条款（Non-Commercial）**。个人学习、研究与非商用场景完全免费；任何企业内部闭源集成、SaaS 化打包或商业化销售行为，均需联系作者获取商业授权（联系邮箱：`supercomputing@agent.qq.com`）。
