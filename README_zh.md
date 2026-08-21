@@ -10,7 +10,7 @@
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D9.0.0-orange.svg)](https://pnpm.io/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25%20Local-success.svg)](./PRIVACY.md)
-[![LINUX DO](https://img.shields.io/badge/社区认证-LINUX%20DO-2563eb.svg?logo=linux&logoColor=white)](https://linux.do)
+[![致谢 LINUX DO](https://img.shields.io/badge/致谢-LINUX%20DO-2563eb.svg?logo=linux&logoColor=white)](https://linux.do)
 
 [English](./README.md) | [简体中文](./README_zh.md)
 
@@ -231,12 +231,9 @@ pnpm run lint
 
 ---
 
-## 👥 社区交流与致谢 (Community)
+## 🙏 致谢 (Acknowledgements)
 
-本项目已被 **[LINUX DO 社区](https://linux.do)** 认可与链接！
-
-- 🐧 **官方交流论坛**：[https://linux.do](https://linux.do)
-- 💬 欢迎各位佬友前往 LINUX DO 社区交流爬虫逆向经验、分享 Playwright/CDP 抓取实战心得以及探讨 LLM 数据采集方案！
+特别感谢 **[LINUX DO 社区](https://linux.do)** 的支持与对开源精神的倡导！
 
 ---
 

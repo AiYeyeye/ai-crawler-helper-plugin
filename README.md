@@ -10,7 +10,7 @@
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D9.0.0-orange.svg)](https://pnpm.io/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](./CONTRIBUTING.md)
 [![Privacy](https://img.shields.io/badge/Privacy-100%25%20Local-success.svg)](./PRIVACY.md)
-[![LINUX DO](https://img.shields.io/badge/Community-LINUX%20DO-2563eb.svg?logo=linux&logoColor=white)](https://linux.do)
+[![Thanks to LINUX DO](https://img.shields.io/badge/Thanks-LINUX%20DO-2563eb.svg?logo=linux&logoColor=white)](https://linux.do)
 
 [English](./README.md) | [简体中文](./README_zh.md)
 
@@ -223,12 +223,9 @@ pnpm run lint
 
 ---
 
-## 👥 Community & Acknowledgements
+## 🙏 Acknowledgements
 
-This project is proudly endorsed by and linked with the **[LINUX DO](https://linux.do)** developer community!
-
-- 🐧 **Community Forum**: [https://linux.do](https://linux.do)
-- 💬 You are welcome to join discussions, share crawler recipes, and report feedback within the LINUX DO community.
+Special thanks to the **[LINUX DO](https://linux.do)** community for their support and open-source inspiration!
 
 ---
 

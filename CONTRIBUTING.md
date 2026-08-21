@@ -80,11 +80,9 @@ pnpm run lint
 
 ---
 
-## 💬 Community & Discussions
+## 💬 Questions & Discussions
 
-Feel free to discuss ideas, ask questions, or share crawler recipes in:
-- [GitHub Issues](https://github.com/AiYeyeye/ai-crawler-helper-plugin/issues)
-- [LINUX DO Community](https://linux.do)
+Feel free to ask questions, report bugs, or propose new features in [GitHub Issues](https://github.com/AiYeyeye/ai-crawler-helper-plugin/issues).
 
 ---
 
