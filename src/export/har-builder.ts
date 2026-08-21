@@ -258,14 +258,10 @@ const buildPostData = (
     };
   }
 
-  if (requestBody.kind === "unavailable") {
-    return {
-      mimeType: contentType,
-      comment: `[unavailable: ${requestBody.reason}]`,
-    };
-  }
-
-  return undefined;
+  return {
+    mimeType: contentType,
+    comment: `[unavailable: ${requestBody.reason}]`,
+  };
 };
 
 /**
@@ -360,7 +356,7 @@ export const buildHar = (data: SessionExportData): HarLog => {
         contentComment = `[binary body: ${String(req.responseBody.byteLength ?? 0)} bytes]`;
       } else if (req.responseBody.kind === "unavailable") {
         contentComment = `[unavailable: ${req.responseBody.reason}]`;
-      } else if (req.responseBody.kind === "missing_due_to_gap") {
+      } else {
         contentComment = `[missing due to capture gap: ${req.responseBody.gapId}]`;
       }
     }
