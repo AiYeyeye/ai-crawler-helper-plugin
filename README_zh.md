@@ -23,7 +23,7 @@
 
 当你在目标站点中手动操作时，扩展以 **Step（步骤）** 为核心单位，忠实记录用户操作、目标元素局部 DOM 子树、DOM 动态突变（Mutation）、URL 导航、CDP 级完整网络请求/响应体以及 Cookie/Storage 状态变化，并一键导出版权化、结构化的事实数据包（Fact Package）。
 
-不同于脆弱的整页 HTML 抓取工具或沉重的黑盒代理，`AI Crawler Helper` 只采集**客观真实的浏览器事实**，导出的数据可直接投喂给大语言模型（Claude 3.5 Sonnet、ChatGPT、DeepSeek-V3 等）或工程师，一键生成高可用、抗反爬的 Python (Playwright / DrissionPage / Scrapy) 或 Node.js (Puppeteer) 爬虫代码。
+不同于脆弱的整页 HTML 抓取工具或沉重的黑盒代理，`AI Crawler Helper` 只采集**客观真实的浏览器事实**，导出的数据可直接投喂给大语言模型（Claude、ChatGPT、DeepSeek 等）或工程师，一键生成高可用、抗反爬的 Python (Playwright / DrissionPage / Scrapy) 或 Node.js (Puppeteer) 爬虫代码。
 
 ---
 
@@ -84,7 +84,7 @@ flowchart LR
         Offscreen --> FactPackage[结构化事实包: ZIP / JSON]
     end
 
-    FactPackage --> AI[AI 编程助手: Claude / GPT-4 / DeepSeek]
+    FactPackage --> AI[AI 编程助手: Claude / ChatGPT / DeepSeek]
     FactPackage --> Human[爬虫与自动化测试工程师]
 ```
 
@@ -162,7 +162,7 @@ flowchart LR
 3. 浏览器将自动下载一个名为 `export-session-[id].zip` 的结构化归档文件至你的电脑。
 
 ### 第六步：投喂大模型，一键生成爬虫代码
-解压导出的 ZIP 包，将其中的 `INDEX.md` 和关键 JSON 文件直接发送给你常用的大模型编程助手（如 Claude 3.5 Sonnet、ChatGPT、DeepSeek-V3、Cursor）：
+解压导出的 ZIP 包，将其中的 `INDEX.md` 和关键 JSON 文件直接发送给你常用的大模型编程助手（如 Claude、ChatGPT、DeepSeek、Cursor 等）：
 
 > 💬 **向 AI 提问的推荐 Prompt 模板**：
 > ```text

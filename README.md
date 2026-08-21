@@ -82,7 +82,7 @@ flowchart LR
         Offscreen --> FactPackage[Structured Fact Package: ZIP / JSON]
     end
 
-    FactPackage --> AI[AI Coding Agents: Claude / GPT-4 / DeepSeek]
+    FactPackage --> AI[AI Coding Agents: Claude / ChatGPT / DeepSeek]
     FactPackage --> Human[Crawler / Test Engineers]
 ```
 
@@ -160,7 +160,7 @@ In the Side Panel:
 - An archive named `export-session-[id].zip` will download directly to your local computer.
 
 ### 6. Feed into AI Agents to Generate Crawlers
-Unpack the ZIP archive or provide `INDEX.md` and `session.json` to your favorite AI coding assistant (Claude 3.5 Sonnet, GPT-4o, DeepSeek-V3, Cursor):
+Unpack the ZIP archive or provide `INDEX.md` and `session.json` to your favorite AI coding assistant (Claude, ChatGPT, DeepSeek, Cursor):
 
 > **Example Prompt for AI**:
 > *"Here is the structured browser interaction fact package recorded by AI Crawler Helper. Based on the recorded DOM locators, network request headers, and pagination steps in `INDEX.md`, please write a robust Python Playwright script that logs in, searches for items, and extracts the target dataset."*

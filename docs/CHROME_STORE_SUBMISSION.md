@@ -25,7 +25,7 @@ AI Crawler Helper is a 100% local-first, privacy-focused Chrome Manifest V3 exte
 
 When exploring target websites manually, AI Crawler Helper faithfully captures user interactions, scoped DOM subtrees, local mutations, navigation lifecycle events, CDP-grade network requests/responses, and cookie/storage transitions into discrete, sequential "Steps".
 
-Exported fact packages (structured ZIP / JSON) can be fed directly to AI coding agents (such as Claude, GPT-4, and DeepSeek) or used by automation engineers to generate robust, production-ready Playwright, Puppeteer, or Scrapy crawlers.
+Exported fact packages (structured ZIP / JSON) can be fed directly to AI coding agents (such as Claude, ChatGPT, and DeepSeek) or used by automation engineers to generate robust, production-ready Playwright, Puppeteer, or Scrapy crawlers.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✨ KEY FEATURES

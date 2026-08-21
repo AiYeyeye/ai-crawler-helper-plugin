@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Storage & Cookie snapshot diffing across discrete user steps.
 - **Export & Storage**:
   - Deterministic versioned fact packages exported as structured ZIP archives or single JSON.
-  - Human- and LLM-readable `INDEX.md` and prompt generation for AI agents (Claude, GPT, DeepSeek).
+  - Human- and LLM-readable `INDEX.md` and prompt generation for AI agents (Claude, ChatGPT, DeepSeek).
   - High-performance asynchronous ZIP compression using Chrome MV3 `offscreen` documents.
   - Storage pressure monitor and Capacity Guard to prevent browser crashes.
 - **User Interface**:
