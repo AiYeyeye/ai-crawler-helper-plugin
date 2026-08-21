@@ -25,6 +25,7 @@ Thumbs.db
 
 # AI Agents, Trellis & Tooling
 .trellis/
+AGENT.md
 AGENTS.md
 .agents/
 .codex/
