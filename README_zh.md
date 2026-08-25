@@ -94,7 +94,12 @@ flowchart LR
 ## 🚀 快速上手
 
 ### 方式 1：从 Chrome Web Store 安装（推荐）
-*(即将上线 - 正在 Chrome 应用商店审核中)*
+
+[![在 Chrome Web Store 安装](https://img.shields.io/badge/Chrome%20Web%20Store-安装扩展-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/ai-crawler-helper/efobdojdfdfmlfomhemgbgchcdjmbjbf?hl=zh-CN)
+
+1. 打开 [Chrome Web Store 中的 AI Crawler Helper](https://chromewebstore.google.com/detail/ai-crawler-helper/efobdojdfdfmlfomhemgbgchcdjmbjbf?hl=zh-CN)。
+2. 点击 **「添加至 Chrome」** 并确认安装。
+3. 安装完成后，从 Chrome 的扩展程序菜单中将插件固定到工具栏；随后打开侧边栏即可开始录制。
 
 ### 方式 2：下载 GitHub Release 预编译包（免配置环境 · 推荐普通用户）
 
