@@ -126,12 +126,12 @@ Real-time storage pressure monitoring automatically pauses recording before hitt
 ## 🚀 四、 提交上架 4 步走实操流程
 
 1. **第 1 步：准备发布安装包**
-   - 直接下载 GitHub 自动打包好的：[ai-crawler-helper-plugin-v0.1.0.zip](https://github.com/AiYeyeye/ai-crawler-helper-plugin/releases/tag/v0.1.0)
+   - 直接下载 GitHub 自动打包好的：[ai-crawler-helper-plugin-v0.1.1.zip](https://github.com/AiYeyeye/ai-crawler-helper-plugin/releases/tag/v0.1.1)
 2. **第 2 步：登录开发者控制台**
    - 打开 [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole)
    - （首次使用需支付 $5 注册开发者账号）
 3. **第 3 步：上传与填写资料**
-   - 点击 **"Add new item"（添加新商品）**，上传 `ai-crawler-helper-plugin-v0.1.0.zip`。
+   - 已上架时：打开现有商品，在 **Package** 上传 `ai-crawler-helper-plugin-v0.1.1.zip`。首次上架才用 **Add new item**。
    - 按照本文档 **第一节** 填写商品信息、上传截图与图标。
    - 按照本文档 **第二节** 填写隐私问卷与权限合理性理由。
 4. **第 4 步：提交审核（Submit for Review）**

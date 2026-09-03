@@ -107,7 +107,7 @@ flowchart LR
 
 1. **下载预编译包**：
    - 打开 [GitHub Releases 页面](https://github.com/AiYeyeye/ai-crawler-helper-plugin/releases/latest)。
-   - 点击下载最新的安装包压缩文件：`ai-crawler-helper-plugin-v0.1.0.zip`。
+   - 点击下载最新的安装包压缩文件：`ai-crawler-helper-plugin-v0.1.1.zip`。
 2. **解压文件**：
    - 将下载的 `.zip` 文件解压到你电脑上的任意文件夹（例如 `D:\plugins\ai-crawler-helper-plugin`）。
 3. **加载到 Chrome / Edge 浏览器**：

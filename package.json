@@ -1,7 +1,7 @@
 {
   "name": "ai-crawler-helper-plugin",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Local-only MV3 recording extension. Foundation: schemas, persistence, session state machine, capacity guard.",
   "author": "AiYeyeye <supercomputing@agent.qq.com>",

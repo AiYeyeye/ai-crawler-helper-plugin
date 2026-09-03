@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.1.1] - 2026-09-03
+
+### Fixed
+- Inject the content script into already-open frames on no_reload start, so SPAs no longer export an empty timeline ([#1](https://github.com/AiYeyeye/ai-crawler-helper-plugin/issues/1)).
+- Make the popup primary action **Start & Reload**; Keep State remains available in the dropdown and now records the current page.
+
 ## [0.1.0] - 2026-08-21
 
 ### Added

@@ -105,7 +105,7 @@ If you just want to use the extension without setting up a developer environment
 
 1. **Download the latest release package**:
    - Go to [GitHub Releases](https://github.com/AiYeyeye/ai-crawler-helper-plugin/releases/latest).
-   - Download the prebuilt archive: `ai-crawler-helper-plugin-v0.1.0.zip`.
+   - Download the prebuilt archive: `ai-crawler-helper-plugin-v0.1.1.zip`.
 2. **Unzip the package**:
    - Extract the `.zip` archive into a local folder on your computer (e.g., `Documents/ai-crawler-helper-plugin`).
 3. **Load into Chrome / Edge**:

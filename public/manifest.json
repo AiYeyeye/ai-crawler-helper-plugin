@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "AI Crawler Helper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Local-only recording of user actions, DOM, navigation, network and storage facts. No backend, no upload, no AI calls.",
   "homepage_url": "https://github.com/AiYeyeye/ai-crawler-helper-plugin",
   "icons": {
