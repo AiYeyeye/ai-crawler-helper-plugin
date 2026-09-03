@@ -237,6 +237,14 @@ describe("Popup", () => {
     disposePopup(container, root);
   });
 
+  it("defaults the main start button to start-and-reload", async () => {
+    listedSessions = [];
+    const { container, root } = await renderPopup();
+    const main = container.querySelector<HTMLButtonElement>(".ach-split-btn__main");
+    expect(main?.textContent).toContain("开始并刷新");
+    disposePopup(container, root);
+  });
+
   it("toggles the start mode dropdown and displays option descriptions", async () => {
     listedSessions = [];
     const { container, root } = await renderPopup();

@@ -11,8 +11,13 @@ import { extTabIdSchema, type SessionId } from "../shared/ids";
  * attach and the initial snapshot BEFORE the session may enter `recording`).
  *
  * Ordering is load-bearing:
- *   preflight -> create (starting) -> register content script -> collectors
+ *   preflight -> create (starting) -> register content script
+ *   -> no_reload inject into existing frames -> collectors
  *   -> optional reload -> start_completed (recording)
+ *
+ * `registerContentScripts` only covers later navigations. no_reload must also
+ * executeScript the current documents so handshake can register them. Reload
+ * skips that inject and relies on document_start after tabs.reload.
  *
  * A session is never left half-capturing: if any collector refuses to start,
  * every already-started collector is disconnected and the session is aborted
@@ -40,6 +45,8 @@ export interface StartPermissionsApi {
 /** Idempotent dynamic content-script registration for a granted match pattern. */
 export interface ContentScriptRegistrar {
   ensureRegistered(matchPattern: string): Promise<void>;
+  /** Inject into already-open frames. no_reload only; must not abort start. */
+  injectIntoExistingFrames(tabId: number): Promise<void>;
 }
 
 export interface StartRecordingDeps {
@@ -160,6 +167,17 @@ export const startRecordingSession = async (
     );
   }
 
+  if (input.mode === "no_reload") {
+    try {
+      await deps.contentScripts.injectIntoExistingFrames(input.tabId);
+    } catch (cause: unknown) {
+      console.warn(
+        "[ai-crawler-helper] content script inject into existing frames failed",
+        cause,
+      );
+    }
+  }
+
   for (const collector of pipeline.collectors) {
     let result;
     try {
@@ -206,9 +224,21 @@ export interface RegisteredContentScriptSpec {
   readonly allFrames: boolean;
 }
 
+export interface ContentScriptInjectTarget {
+  readonly tabId: number;
+  readonly allFrames: true;
+}
+
+export interface ContentScriptInjectSpec {
+  readonly target: ContentScriptInjectTarget;
+  readonly files: readonly string[];
+  readonly injectImmediately: true;
+}
+
 export interface ContentScriptRegistrarApi {
   getRegisteredContentScripts(): Promise<readonly { readonly id: string }[]>;
   registerContentScripts(scripts: readonly RegisteredContentScriptSpec[]): Promise<void>;
+  executeScript(injection: ContentScriptInjectSpec): Promise<void>;
 }
 
 /** Binds dynamic registration to `chrome.scripting`, keyed by match pattern. */
@@ -230,6 +260,13 @@ export const chromeContentScriptRegistrar = (
         allFrames: true,
       },
     ]);
+  },
+  injectIntoExistingFrames: async (tabId: number): Promise<void> => {
+    await scripting.executeScript({
+      target: { tabId, allFrames: true },
+      files: ["content-script.js"],
+      injectImmediately: true,
+    });
   },
 });
 

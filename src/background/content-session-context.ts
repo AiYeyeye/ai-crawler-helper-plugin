@@ -81,6 +81,7 @@ export const resolveContentSessionContext = async (
   const tabId = toExtTabId(sender.tabId);
   const acceptsLifecycle = (lifecycle: SessionLifecycle): boolean =>
     lifecycle === "recording" ||
+    lifecycle === "starting" ||
     (options.acceptStopping !== false && lifecycle === "stopping");
   const candidates = (await sessions.listSessionsForTab(tabId))
     .filter((session) => acceptsLifecycle(session.lifecycle))

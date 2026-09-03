@@ -354,6 +354,13 @@ const chromeScriptingApi = (): ContentScriptRegistrarApi => ({
         allFrames: script.allFrames,
       })),
     ),
+  executeScript: async (injection) => {
+    await chrome.scripting.executeScript({
+      target: { tabId: injection.target.tabId, allFrames: injection.target.allFrames },
+      files: [...injection.files],
+      injectImmediately: injection.injectImmediately,
+    });
+  },
 });
 
 /**

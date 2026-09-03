@@ -79,7 +79,7 @@ export const App = (): ReactElement => {
   const [nowMs, setNowMs] = useState(() => Date.now());
   const [locale, setLocale] = useState<Locale>(DEFAULT_LOCALE);
   const [deleteCandidate, setDeleteCandidate] = useState<SessionRecord | null>(null);
-  const [startMode, setStartMode] = useState<"no_reload" | "reload">("no_reload");
+  const [startMode, setStartMode] = useState<"no_reload" | "reload">("reload");
   const [menuOpen, setMenuOpen] = useState(false);
   const splitBtnRef = useRef<HTMLDivElement>(null);
 

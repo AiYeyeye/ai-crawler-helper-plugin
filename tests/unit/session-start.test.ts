@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import {
+  chromeContentScriptRegistrar,
   contentScriptIdFor,
   startRecordingSession,
   type StartRecordingDeps,
@@ -26,6 +27,7 @@ interface Harness {
   disconnected: string[];
   reloaded: number[];
   registered: string[];
+  injected: number[];
 }
 
 const collector = (
@@ -60,12 +62,14 @@ const harness = (options: {
   collectors?: CaptureCollector[];
   fileAllowed?: boolean;
   registerThrows?: boolean;
+  injectThrows?: boolean;
   tabMissing?: boolean;
 } = {}): Harness => {
   const lifecycle: string[] = [];
   const log = { started: [] as string[], disconnected: [] as string[] };
   const reloaded: number[] = [];
   const registered: string[] = [];
+  const injected: number[] = [];
   const collectors = options.collectors ?? [collector("debugger_network", "ok", log)];
 
   const deps: StartRecordingDeps = {
@@ -97,12 +101,27 @@ const harness = (options: {
         registered.push(pattern);
         return Promise.resolve();
       },
+      injectIntoExistingFrames: (tabId) => {
+        if (options.injectThrows === true) {
+          return Promise.reject(new Error("inject failed"));
+        }
+        injected.push(tabId);
+        return Promise.resolve();
+      },
     },
     isFileSchemeAllowed: () => Promise.resolve(options.fileAllowed ?? false),
     now: () => T0,
   };
 
-  return { deps, lifecycle, started: log.started, disconnected: log.disconnected, reloaded, registered };
+  return {
+    deps,
+    lifecycle,
+    started: log.started,
+    disconnected: log.disconnected,
+    reloaded,
+    registered,
+    injected,
+  };
 };
 
 describe("target eligibility", () => {
@@ -141,23 +160,36 @@ describe("target eligibility", () => {
 });
 
 describe("startRecordingSession", () => {
-  it("registers the content script, starts collectors and completes the start", async () => {
+  it("registers the content script, injects existing frames, starts collectors and completes the start", async () => {
     const context = harness();
     const result = await startRecordingSession(context.deps, { tabId: 7, mode: "no_reload" });
 
     expect(result.ok).toBe(true);
     expect(context.registered).toEqual(["https://example.com/*"]);
+    expect(context.injected).toEqual([7]);
     expect(context.started).toEqual(["debugger_network"]);
     expect(context.lifecycle).toEqual(["start_completed"]);
     expect(context.reloaded).toEqual([]);
   });
 
-  it("reloads the tab only in reload mode, after collectors attach", async () => {
+  it("reloads the tab only in reload mode, after collectors attach, without injecting the current document", async () => {
     const context = harness();
     await startRecordingSession(context.deps, { tabId: 7, mode: "reload" });
 
     expect(context.started).toEqual(["debugger_network"]);
     expect(context.reloaded).toEqual([7]);
+    expect(context.injected).toEqual([]);
+  });
+
+  it("completes no_reload start when existing-frame inject throws", async () => {
+    const spy = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const context = harness({ injectThrows: true });
+    const result = await startRecordingSession(context.deps, { tabId: 7, mode: "no_reload" });
+
+    expect(result.ok).toBe(true);
+    expect(context.started).toEqual(["debugger_network"]);
+    expect(context.lifecycle).toEqual(["start_completed"]);
+    spy.mockRestore();
   });
 
   it("refuses without the host grant and never creates collectors", async () => {
@@ -239,5 +271,22 @@ describe("startRecordingSession", () => {
       contentScriptIdFor("https://other.com/*"),
     );
     expect(contentScriptIdFor("https://example.com/*")).toMatch(/^[a-zA-Z0-9-]+$/u);
+  });
+
+  it("injects content-script.js into all existing frames immediately", async () => {
+    const executeScript = vi.fn(() => Promise.resolve());
+    const registrar = chromeContentScriptRegistrar({
+      getRegisteredContentScripts: () => Promise.resolve([]),
+      registerContentScripts: () => Promise.resolve(),
+      executeScript,
+    });
+
+    await registrar.injectIntoExistingFrames(42);
+
+    expect(executeScript).toHaveBeenCalledWith({
+      target: { tabId: 42, allFrames: true },
+      files: ["content-script.js"],
+      injectImmediately: true,
+    });
   });
 });

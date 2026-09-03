@@ -219,6 +219,26 @@ describe("resolveContentSessionContext", () => {
     ).resolves.toEqual({ active: false });
   });
 
+  it("accepts a starting session so no_reload inject can handshake before start_completed", async () => {
+    const startingSession: SessionRecord = { ...session, lifecycle: "starting" };
+    const startingControl: SessionControlRecord = { ...control, lifecycle: "starting" };
+    const result = await resolveContentSessionContext(
+      {
+        listSessionsForTab: () => Promise.resolve([startingSession]),
+        getControl: () => Promise.resolve(startingControl),
+      },
+      { tabId: 7, frameId: 0, documentId: "doc-starting" },
+      { acceptStopping: false },
+    );
+
+    expect(result).toMatchObject({
+      active: true,
+      sessionId,
+      captureEpochId,
+      scope: { tabId: 7, frameId: 0, documentId: "doc-starting" },
+    });
+  });
+
   it("allows stopping for late observation verification but not for a new handshake", async () => {
     const stoppingSession: SessionRecord = { ...session, lifecycle: "stopping" };
     const stoppingControl: SessionControlRecord = { ...control, lifecycle: "stopping" };
